@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:varchas_app/widgets.dart';
 
-class ScheduleScreen extends StatefulWidget {
-  const ScheduleScreen({Key? key}) : super(key: key);
+class SelectSportScreen extends StatefulWidget {
+  const SelectSportScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScheduleScreen> createState() => _ScheduleScreenState();
+  State<SelectSportScreen> createState() => _SelectSportScreenState();
 }
 
-class _ScheduleScreenState extends State<ScheduleScreen> {
+class _SelectSportScreenState extends State<SelectSportScreen> {
   bool isFabVisible = true;  // for floating button visibility
 
   @override
