@@ -66,13 +66,13 @@ class Header extends StatelessWidget {
   }
 }
 
-class DepartmentCard extends StatelessWidget {
+class TeamCard extends StatelessWidget {
   final String teamOneName;
   final String teamTwoName;
   final String sportName;
   final String time;
   final Size size;
-  const DepartmentCard({Key? key,required this.teamTwoName,required this.teamOneName,required this.size,required this.sportName,required this.time}) : super(key: key);
+  const TeamCard({Key? key,required this.teamTwoName,required this.teamOneName,required this.size,required this.sportName,required this.time}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
