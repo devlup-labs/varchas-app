@@ -13,14 +13,14 @@ class Header extends StatelessWidget {
       child: Stack(
         children:[
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 15,
               left: 15,
               right: 10,
             ),
             height: size.height * 0.2,
             width: size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30),
@@ -30,8 +30,11 @@ class Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.menu,color: Colors.white,),
+              children: const [
+                Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
                 SizedBox(height: 15,),
                 Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
               ],
@@ -49,7 +52,7 @@ class Header extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     offset: Offset(0, 10),
                     blurRadius: 50,
