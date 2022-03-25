@@ -8,19 +8,19 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: size.height * 0.24,
       child: Stack(
         children:[
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 15,
               left: 15,
               right: 10,
             ),
             height: size.height * 0.2,
             width: size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30),
@@ -30,7 +30,7 @@ class Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+              children: const [
                 Icon(Icons.menu,color: Colors.white,),
                 SizedBox(height: 15,),
                 Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
@@ -43,13 +43,13 @@ class Header extends StatelessWidget {
             right: 0,
             child: Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              padding: EdgeInsets.symmetric(horizontal: 50),
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               height: 44,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     offset: Offset(0, 10),
                     blurRadius: 50,
@@ -57,7 +57,7 @@ class Header extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Text("Schedule",textAlign: TextAlign.center,style:TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
+              child: const Text("Schedule",textAlign: TextAlign.center,style:TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
             ),
           ),
         ],
@@ -79,7 +79,7 @@ class TeamCard extends StatelessWidget {
     return Container(
         height: size.height*0.12,
         width: size.width*0.90,
-        margin: EdgeInsets.only(right: 15),
+        margin: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(20),
@@ -88,16 +88,16 @@ class TeamCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text( teamOneName, style: TextStyle( color: Colors.white, fontSize: 19,),),
+            Text( teamOneName, style: const TextStyle( color: Colors.white, fontSize: 19,),),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text( sportName, style: TextStyle( color: Colors.red, fontSize: 9,),),
-                Text( time, style: TextStyle( color: Colors.white, fontSize: 9,),),
+                Text( sportName, style: const TextStyle( color: Colors.red, fontSize: 15,),),
+                Text( time, style: const TextStyle( color: Colors.white, fontSize: 10,),),
               ],
             ),
-            Text( teamOneName, style: TextStyle( color: Colors.white, fontSize: 19,),),
+            Text( teamOneName, style: const TextStyle( color: Colors.white, fontSize: 19,),),
 
           ],
         )
@@ -106,3 +106,14 @@ class TeamCard extends StatelessWidget {
 
   }
 }
+
+Widget nextScreenButton() => const FloatingActionButton.extended(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.vertical(top: Radius.circular(20),bottom: Radius.circular(20))
+  ),
+  onPressed: null,
+  elevation: 10,
+  backgroundColor: Colors.white,
+    label: Text("Leaderboard",style: TextStyle( color: Colors.black, fontSize: 15,),),
+
+);
