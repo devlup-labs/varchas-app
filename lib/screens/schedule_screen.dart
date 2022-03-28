@@ -14,7 +14,7 @@ class ScheduleScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Header(size: data),
+            Header(size: data, screenName: "Schedule"),
             SizedBox(height: data.height*0.01,),
             Expanded(
               child: ListView(

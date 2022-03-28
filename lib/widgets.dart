@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
   final Size size;
-  const Header({Key? key, required this.size}) : super(key: key);
+  final String screenName;
+  const Header({Key? key, required this.size, required this.screenName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +14,14 @@ class Header extends StatelessWidget {
       child: Stack(
         children:[
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 15,
               left: 15,
               right: 10,
             ),
             height: size.height * 0.2,
             width: size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30),
@@ -31,9 +32,10 @@ class Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(Icons.menu,color: Colors.white,),
-                SizedBox(height: 15,),
-                Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+                const Icon(Icons.menu,color: Colors.white,),
+                const SizedBox(height: 15,),
+                // Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+                Image.asset("assets/varchas_text_logo.jpeg", height: size.height * 0.08,),
               ],
             ),
           ),
@@ -57,7 +59,7 @@ class Header extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Text("Schedule",textAlign: TextAlign.center,style:TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
+              child: Text(screenName,textAlign: TextAlign.center,style:TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
             ),
           ),
         ],
@@ -93,11 +95,11 @@ class TeamCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text( sportName, style: TextStyle( color: Colors.red, fontSize: 9,),),
-                Text( time, style: TextStyle( color: Colors.white, fontSize: 9,),),
+                Text( sportName, style: const TextStyle( color: Colors.red, fontSize: 9,),),
+                Text( time, style: const TextStyle( color: Colors.white, fontSize: 9,),),
               ],
             ),
-            Text( teamOneName, style: TextStyle( color: Colors.white, fontSize: 19,),),
+            Text( teamOneName, style: const TextStyle( color: Colors.white, fontSize: 19,),),
 
           ],
         )
