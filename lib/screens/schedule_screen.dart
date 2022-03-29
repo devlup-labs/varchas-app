@@ -24,8 +24,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
 
           children: [
-
-            Header(size: data),
+            Header(size: data, screenName: "Schedule"),
             SizedBox(height: data.height*0.01,),
             Expanded(
               child: NotificationListener<UserScrollNotification>(
@@ -57,7 +56,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           ],
         ),
       ),
-      floatingActionButton: isFabVisible ? nextScreenButton(): null,
+      floatingActionButton: isFabVisible ? nextScreenButton(context, 'Leaderboard'): null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:varchas_app/screens/schedule_screen.dart';
+import 'package:varchas_app/screens/login_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Varchas',
 
-      home: ScheduleScreen(),
+      home: LoginScreen(),
     );
   }
 }
