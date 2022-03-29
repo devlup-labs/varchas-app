@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:varchas_app/screens/choose_sport.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -151,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
             ],
           ),
         ),
@@ -195,4 +196,3 @@ class _LoginScreenState extends State<LoginScreen> {
 //     );
 //   }
 // }
-
