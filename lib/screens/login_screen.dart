@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:varchas_app/screens/choose_sport.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
+
+import 'about_us_screen.dart';
+import 'home_page.dart';
+import 'leaderboard_screen.dart';
+import 'menu_screen.dart';
+import 'my_competetion_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -31,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         title: Image.asset("assets/varchas_text_logo.jpeg", height: pageSize.height * 0.08,),
       ),
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.grey.withOpacity(1),
       body: Container(
         padding: EdgeInsets.all(pageSize.width * 0.025),
         child: Container(
@@ -103,9 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const ScheduleScreen()),
+                    MaterialPageRoute(builder: (context) => const MyHomePage()),
                   );
                 },
                 child: Container(
@@ -129,9 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const ScheduleScreen()),
+                    MaterialPageRoute(builder: (context) => const MyHomePage()),
                   );
                 },
                 child: Container(
@@ -160,6 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
 //
 // class RoundedInputField extends StatelessWidget {
 //   final String hintText;

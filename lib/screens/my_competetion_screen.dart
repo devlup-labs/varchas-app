@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:varchas_app/screens/leaderboard_screen.dart';
 import 'package:varchas_app/widgets.dart';
 
-class ScheduleScreen extends StatefulWidget {
-  const ScheduleScreen({Key? key}) : super(key: key);
+class MyCompetitionScreen extends StatefulWidget {
+  const MyCompetitionScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScheduleScreen> createState() => _ScheduleScreenState();
+  State<MyCompetitionScreen> createState() => _MyCompetitionScreenState();
 }
 
-class _ScheduleScreenState extends State<ScheduleScreen> {
+class _MyCompetitionScreenState extends State<MyCompetitionScreen> {
   bool isFabVisible = true;  // for floating button visibility
 
   @override
@@ -24,15 +25,15 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
 
           children: [
-            Header(size: data, screenName: "Schedule"),
+
+            Header(size: data,screenName: 'Upcoming Competitions'),
             SizedBox(height: data.height*0.01,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:  [
-                DayButton(day: "Day 1", size: data),
-                DayButton(day: "Day 2", size: data),
-                DayButton(day: "Day 3", size: data),
+                DayButton(day: "Team", size: data),
+                DayButton(day: "Solo", size: data),
 
               ],
             ),
@@ -69,7 +70,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       ),
       // floatingActionButton: isFabVisible ? nextScreenButton(context,const LeaderBoardScreen(),"Leaderboard"): null,
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
 
     );
   }
