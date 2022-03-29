@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:varchas_app/screens/schedule_screen.dart';
 import 'package:varchas_app/widgets.dart';
 
-class SelectSportScreen extends StatefulWidget {
-  const SelectSportScreen({Key? key}) : super(key: key);
+class LeaderBoardScreen extends StatefulWidget {
+  const LeaderBoardScreen({Key? key}) : super(key: key);
 
   @override
-  State<SelectSportScreen> createState() => _SelectSportScreenState();
+  State<LeaderBoardScreen> createState() => _LeaderBoardScreenState();
 }
 
-class _SelectSportScreenState extends State<SelectSportScreen> {
+class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
   bool isFabVisible = true;  // for floating button visibility
 
   @override
@@ -25,8 +26,47 @@ class _SelectSportScreenState extends State<SelectSportScreen> {
 
           children: [
 
-            Header(size: data),
+            Header(size: data,tittle: "Leaderboard",),
             SizedBox(height: data.height*0.01,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:  [
+                Container(
+                  height: data.height*0.05,
+                  width: data.width*0.14,
+                  margin: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.black,
+                  ),
+                  child:  Center(child: const Text('Rank',style:  TextStyle( color: Colors.white, fontSize: 15,),)),
+                ),
+                Expanded(
+                  child: Container(
+                    height: data.height*0.05,
+                    width: data.width*0.15,
+                    //padding: const EdgeInsets.all(5),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Colors.black,
+                    ),
+                    child: Center(child: Text("Team Name",style:  const TextStyle( color: Colors.white, fontSize: 15,),)),
+                  ),
+                ),
+                Container(
+                  height: data.height*0.05,
+                  width: data.width*0.15,
+                  margin: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.black,
+                  ),
+                  child: Center(child: Text("Score",style:  const TextStyle( color: Colors.white, fontSize: 15,),)),
+                ),
+
+              ],
+            ),
             Expanded(
               child: NotificationListener<UserScrollNotification>(
                 onNotification: (notification){
@@ -41,14 +81,14 @@ class _SelectSportScreenState extends State<SelectSportScreen> {
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
-                    TeamCard(teamTwoName: "Team Two", teamOneName: "Team One", size: data, sportName: "Football", time: "10:00 AM"),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
+                    LeaderBoardTeamCard(rank: '01', teamName: 'Team Name', score: "1000", size: data),
 
                   ],
                 ),
@@ -57,7 +97,7 @@ class _SelectSportScreenState extends State<SelectSportScreen> {
           ],
         ),
       ),
-      floatingActionButton: isFabVisible ? nextScreenButton(): null,
+      floatingActionButton: isFabVisible ? nextScreenButton(context,const ScheduleScreen(),"Schedule"): null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
     );

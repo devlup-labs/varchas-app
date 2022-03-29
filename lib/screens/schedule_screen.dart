@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:varchas_app/screens/select_sport_screen.dart';
 import 'package:varchas_app/widgets.dart';
 
 class ScheduleScreen extends StatefulWidget {
@@ -25,7 +26,18 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
           children: [
 
-            Header(size: data),
+            Header(size: data,tittle: 'Schedule'),
+            SizedBox(height: data.height*0.01,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:  [
+                DayButton(day: "Day 1", size: data),
+                DayButton(day: "Day 2", size: data),
+                DayButton(day: "Day 3", size: data),
+
+              ],
+            ),
             SizedBox(height: data.height*0.01,),
             Expanded(
               child: NotificationListener<UserScrollNotification>(
@@ -57,7 +69,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           ],
         ),
       ),
-      floatingActionButton: isFabVisible ? nextScreenButton(): null,
+      floatingActionButton: isFabVisible ? nextScreenButton(context,const LeaderBoardScreen(),"Leaderboard"): null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
     );

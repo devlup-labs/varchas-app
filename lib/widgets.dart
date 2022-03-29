@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
   final Size size;
-  const Header({Key? key, required this.size}) : super(key: key);
+  final String tittle;
+
+  const Header({Key? key, required this.size,required  this.tittle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class Header extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Text("Schedule",textAlign: TextAlign.center,style:TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
+              child:  Text( tittle,textAlign: TextAlign.center,style:const TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
             ),
           ),
         ],
@@ -107,13 +109,83 @@ class TeamCard extends StatelessWidget {
   }
 }
 
-Widget nextScreenButton() => const FloatingActionButton.extended(
-  shape: RoundedRectangleBorder(
+Widget nextScreenButton(context,path,tittle) =>  FloatingActionButton.extended(
+  shape: const RoundedRectangleBorder(
     borderRadius: BorderRadius.vertical(top: Radius.circular(20),bottom: Radius.circular(20))
   ),
-  onPressed: null,
+  onPressed: (){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => path));
+  },
   elevation: 10,
   backgroundColor: Colors.white,
-    label: Text("Leaderboard",style: TextStyle( color: Colors.black, fontSize: 15,),),
+    label:  Text(tittle,style:  const TextStyle( color: Colors.black, fontSize: 15,),),
 
 );
+
+class DayButton extends StatelessWidget {
+ // final String path;
+  final String day;
+  final Size size;
+  const DayButton({Key? key,required this.day,required this.size,}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+
+      },
+      child: Container(
+        height: size.height*0.05,
+        width: size.width*0.15,
+        //padding: const EdgeInsets.all(5),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.black,
+        ),
+        child: Center(child: Text(day,style:  const TextStyle( color: Colors.white, fontSize: 15,),)),
+      ),
+    );
+  }
+}
+
+class LeaderBoardTeamCard extends StatelessWidget {
+  final String rank;
+  final String teamName;
+  final String score;
+  final Size size;
+  const LeaderBoardTeamCard({Key? key,required this.rank,required this.teamName,required this.score,required this.size}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: size.height*0.08,
+        width: size.width*0.90,
+        margin: const EdgeInsets.all(5.0),
+        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              width: 5,
+            ),
+            Text( rank, style: const TextStyle( color: Colors.white, fontSize: 19,),),
+            const SizedBox(
+              width: 15,
+            ),
+            Expanded(child: Center(child: Text( teamName, style: const TextStyle( color: Colors.white, fontSize: 19,),))),
+            Text( score, style: const TextStyle( color: Colors.white, fontSize: 19,),),
+
+
+          ],
+        )
+
+    );
+
+  }
+}
