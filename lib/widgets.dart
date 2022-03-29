@@ -1,10 +1,13 @@
 // this file has all the widets that are used in all the screens
 
 import 'package:flutter/material.dart';
+import 'package:varchas_app/screens/choose_sport.dart';
+import 'package:varchas_app/screens/schedule_screen.dart';
 
 class Header extends StatelessWidget {
   final Size size;
-  const Header({Key? key, required this.size}) : super(key: key);
+  final String screenName;
+  const Header({Key? key, required this.size, required this.screenName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +33,19 @@ class Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-                SizedBox(height: 15,),
-                Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+              //// OLD
+              // children: const [
+              //   Icon(
+              //     Icons.menu,
+              //     color: Colors.white,
+              //   ),
+              //   SizedBox(height: 15,),
+              //   Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+              children: [
+                const Icon(Icons.menu,color: Colors.white,),
+                const SizedBox(height: 15,),
+                // Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+                Image.asset("assets/varchas_text_logo.jpeg", height: size.height * 0.08,),
               ],
             ),
           ),
@@ -60,7 +69,7 @@ class Header extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Text("Schedule",textAlign: TextAlign.center,style:TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
+              child: Text(screenName,textAlign: TextAlign.center,style:const TextStyle(color: Colors.black,fontSize: 19,fontWeight: FontWeight.bold),),
             ),
           ),
         ],
@@ -110,13 +119,31 @@ class TeamCard extends StatelessWidget {
   }
 }
 
-Widget nextScreenButton() => const FloatingActionButton.extended(
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.vertical(top: Radius.circular(20),bottom: Radius.circular(20))
-  ),
-  onPressed: null,
-  elevation: 10,
-  backgroundColor: Colors.white,
-    label: Text("Leaderboard",style: TextStyle( color: Colors.black, fontSize: 15,),),
+Widget nextScreenButton(context, String nextScreenName) {
+  return FloatingActionButton.extended(
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20), bottom: Radius.circular(20))
+    ),
+    onPressed: (){
+        StatefulWidget screenWidget;
+        if(nextScreenName == 'Leaderboard'){
+          screenWidget = const ChooseSportScreen();
+        }
+        else{
+          screenWidget = const ScheduleScreen();
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screenWidget),
+        );
+    },
+    elevation: 10,
+    backgroundColor: Colors.white,
+    label: Text(
+      nextScreenName.toString(),
+      style: const TextStyle(color: Colors.black, fontSize: 15,),
+    ),
 
-);
+  );
+}
