@@ -1,6 +1,8 @@
 // this file has all the widets that are used in all the screens
 
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+
 
 class Header extends StatelessWidget {
   final Size size;
@@ -32,10 +34,13 @@ class Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Icon(Icons.menu,color: Colors.white,),
-                SizedBox(height: 15,),
-                Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+              children:   [
+                IconButton(
+                  onPressed: ()=> ZoomDrawer.of(context)!.toggle(),
+                  icon: const Icon(Icons.menu,color: Colors.white,),
+                ),
+                const SizedBox(height: 15,),
+                const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
               ],
             ),
           ),
@@ -162,7 +167,7 @@ class LeaderBoardTeamCard extends StatelessWidget {
         height: size.height*0.08,
         width: size.width*0.90,
         margin: const EdgeInsets.all(5.0),
-        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(10),
@@ -189,3 +194,5 @@ class LeaderBoardTeamCard extends StatelessWidget {
 
   }
 }
+
+

@@ -40,7 +40,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.black,
                   ),
-                  child:  Center(child: const Text('Rank',style:  TextStyle( color: Colors.white, fontSize: 15,),)),
+                  child:  const Center(child: Text('Rank',style:  TextStyle( color: Colors.white, fontSize: 15,),)),
                 ),
                 Expanded(
                   child: Container(
@@ -51,7 +51,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       color: Colors.black,
                     ),
-                    child: Center(child: Text("Team Name",style:  const TextStyle( color: Colors.white, fontSize: 15,),)),
+                    child: const Center(child: Text("Team Name",style:  TextStyle( color: Colors.white, fontSize: 15,),)),
                   ),
                 ),
                 Container(
@@ -62,7 +62,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.black,
                   ),
-                  child: Center(child: Text("Score",style:  const TextStyle( color: Colors.white, fontSize: 15,),)),
+                  child: const Center(child: Text("Score",style:  TextStyle( color: Colors.white, fontSize: 15,),)),
                 ),
 
               ],
@@ -97,8 +97,8 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
           ],
         ),
       ),
-      floatingActionButton: isFabVisible ? nextScreenButton(context,const ScheduleScreen(),"Schedule"): null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: isFabVisible ? nextScreenButton(context,const ScheduleScreen(),"Schedule"): null,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
     );
   }
