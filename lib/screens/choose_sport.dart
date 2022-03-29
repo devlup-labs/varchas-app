@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:varchas_app/Utils/constants.dart';
+import 'package:varchas_app/screens/leaderboard_screen.dart';
 
 import '../widgets.dart';
 
@@ -17,7 +18,7 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
   Widget build(BuildContext context) {
     Size data = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.grey.withOpacity(1),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,7 +54,13 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
 
   Widget displaySportIcon(String sportName){
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LeaderBoardScreen(),
+            ),
+        );
+      },
       child: Card(
         color: Colors.black,
         margin: EdgeInsets.all(6),

@@ -1,14 +1,12 @@
-// this file has all the widets that are used in all the screens
-
+// this file has all the widgets that are used in all the screens
 import 'package:flutter/material.dart';
-import 'package:varchas_app/screens/choose_sport.dart';
-import 'package:varchas_app/screens/schedule_screen.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 class Header extends StatelessWidget {
   final Size size;
   final String screenName;
-  const Header({Key? key, required this.size, required this.screenName}) : super(key: key);
-
+  final bool showMenuOption;
+  const Header({Key? key, required this.size, required this.screenName, this.showMenuOption = true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,18 +31,13 @@ class Header extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-              //// OLD
-              // children: const [
-              //   Icon(
-              //     Icons.menu,
-              //     color: Colors.white,
-              //   ),
-              //   SizedBox(height: 15,),
-              //   Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
-              children: [
-                const Icon(Icons.menu,color: Colors.white,),
+              children:   [
+                showMenuOption? IconButton(
+                  onPressed: ()=> ZoomDrawer.of(context)!.toggle(),
+                  icon: const Icon(Icons.menu,color: Colors.white,),
+                ): const SizedBox(height: 1,),
                 const SizedBox(height: 15,),
-                // Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+                // const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
                 Image.asset("assets/varchas_text_logo.jpeg", height: size.height * 0.08,),
               ],
             ),
@@ -119,31 +112,83 @@ class TeamCard extends StatelessWidget {
   }
 }
 
-Widget nextScreenButton(context, String nextScreenName) {
-  return FloatingActionButton.extended(
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20), bottom: Radius.circular(20))
-    ),
-    onPressed: (){
-        StatefulWidget screenWidget;
-        if(nextScreenName == 'Leaderboard'){
-          screenWidget = const ChooseSportScreen();
-        }
-        else{
-          screenWidget = const ScheduleScreen();
-        }
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => screenWidget),
-        );
-    },
-    elevation: 10,
-    backgroundColor: Colors.white,
-    label: Text(
-      nextScreenName.toString(),
-      style: const TextStyle(color: Colors.black, fontSize: 15,),
-    ),
+Widget nextScreenButton(context,path,tittle) =>  FloatingActionButton.extended(
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.vertical(top: Radius.circular(20),bottom: Radius.circular(20))
+  ),
+  onPressed: (){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => path));
+  },
+  elevation: 10,
+  backgroundColor: Colors.white,
+    label:  Text(tittle,style:  const TextStyle( color: Colors.black, fontSize: 15,),),
 
-  );
+);
+
+class DayButton extends StatelessWidget {
+ // final String path;
+  final String day;
+  final Size size;
+  const DayButton({Key? key,required this.day,required this.size,}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+
+      },
+      child: Container(
+        height: size.height*0.05,
+        width: size.width*0.15,
+        //padding: const EdgeInsets.all(5),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.black,
+        ),
+        child: Center(child: Text(day,style:  const TextStyle( color: Colors.white, fontSize: 15,),)),
+      ),
+    );
+  }
+}
+
+class LeaderBoardTeamCard extends StatelessWidget {
+  final String rank;
+  final String teamName;
+  final String score;
+  final Size size;
+  const LeaderBoardTeamCard({Key? key,required this.rank,required this.teamName,required this.score,required this.size}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: size.height*0.08,
+        width: size.width*0.90,
+        margin: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              width: 5,
+            ),
+            Text( rank, style: const TextStyle( color: Colors.white, fontSize: 19,),),
+            const SizedBox(
+              width: 15,
+            ),
+            Expanded(child: Center(child: Text( teamName, style: const TextStyle( color: Colors.white, fontSize: 19,),))),
+            Text( score, style: const TextStyle( color: Colors.white, fontSize: 19,),),
+
+
+          ],
+        )
+
+    );
+
+  }
 }
