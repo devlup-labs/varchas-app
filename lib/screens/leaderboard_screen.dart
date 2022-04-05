@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:varchas_app/widgets.dart';
 
 class LeaderBoardScreen extends StatefulWidget {
@@ -10,22 +9,15 @@ class LeaderBoardScreen extends StatefulWidget {
 }
 
 class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
-  bool isFabVisible = true;  // for floating button visibility
+ // bool isFabVisible = true;  // for floating button visibility
 
   @override
   Widget build(BuildContext context) {
     Size data = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(1),
-      appBar: AppBar(
-        bottomOpacity: 0,
-        backgroundColor: Colors.black,
-        toolbarHeight: data.height * 0.05,
-        title: Container(
-          color: Colors.black,
-        ),
-      ),
+      backgroundColor: const Color.fromRGBO(35, 14, 33, 25),
+
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -42,7 +34,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                 Container(
                   height: data.height*0.05,
                   width: data.width*0.14,
-                  margin: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.black,
@@ -64,7 +56,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                 Container(
                   height: data.height*0.05,
                   width: data.width*0.15,
-                  margin: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.black,
@@ -75,16 +67,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               ],
             ),
             Expanded(
-              child: NotificationListener<UserScrollNotification>(
-                onNotification: (notification){
-                  if (notification.direction == ScrollDirection.forward){
-                    setState(() => isFabVisible = true);
-                  }
-                  else if(notification.direction == ScrollDirection.reverse){
-                    setState(() => isFabVisible = false);
-                  }
-                  return true;
-                },
+
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
@@ -100,7 +83,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                   ],
                 ),
               ),
-            ),
+
           ],
         ),
       ),

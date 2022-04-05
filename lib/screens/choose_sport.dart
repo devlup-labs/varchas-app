@@ -18,36 +18,38 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
   Widget build(BuildContext context) {
     Size data = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(1),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Header(size: data, screenName: "Choose Sport"),
-          SizedBox(height: data.height*0.01,),
-          Expanded(
-            child: Scrollbar(
-              thickness: 9,
-              isAlwaysShown: true,
-              child: ListView(
-                padding: const EdgeInsets.all(1.5),
-                children: <Widget>[
-                  GridView.count(
-                    physics: ScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    childAspectRatio: 45 / 60,
-                    crossAxisCount: 2,
-                    children:
-                    List.generate(sportsList.length, (index) {
-                      return displaySportIcon(sportsList[index]);
-                    }),
-                  )
-                ],
+      backgroundColor: Color.fromRGBO(35, 14, 33, 25),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Header(size: data, screenName: "Choose Sport"),
+            SizedBox(height: data.height*0.01,),
+            Expanded(
+              child: Scrollbar(
+                thickness: 4,
+                isAlwaysShown: false,
+                child: ListView(
+                  //padding: const EdgeInsets.all(1.5),
+                  children: <Widget>[
+                    GridView.count(
+                      physics: ScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      childAspectRatio: 45 / 60,
+                      crossAxisCount: 2,
+                      children:
+                      List.generate(sportsList.length, (index) {
+                        return displaySportIcon(sportsList[index]);
+                      }),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

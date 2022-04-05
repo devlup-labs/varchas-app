@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:varchas_app/screens/choose_sport.dart';
-import 'package:varchas_app/screens/schedule_screen.dart';
-
-import 'about_us_screen.dart';
 import 'home_page.dart';
-import 'leaderboard_screen.dart';
-import 'menu_screen.dart';
-import 'my_competetion_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -36,16 +29,36 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        title: Image.asset("assets/varchas_text_logo.jpeg", height: pageSize.height * 0.08,),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/varchas_textLogo_nobg.png", height: pageSize.height * 0.09,),
+              ],
+            ),
+            SizedBox(width: pageSize.width*0.15,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+              ],
+            ),
+
+          ],
+        ),
       ),
-      backgroundColor: Colors.grey.withOpacity(1),
+      backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: Container(
         padding: EdgeInsets.all(pageSize.width * 0.025),
         child: Container(
           alignment: Alignment.center,
           decoration: const BoxDecoration(
             color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -70,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: pageSize.width * 0.8,
                 decoration: BoxDecoration(
                   color: Colors.white38,
-                  borderRadius: BorderRadius.circular(29),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextField(
                   onChanged: (value){},
@@ -91,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: pageSize.width * 0.8,
                 decoration: BoxDecoration(
                   color: Colors.white38,
-                  borderRadius: BorderRadius.circular(29),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextField(
                   obscureText: true,
