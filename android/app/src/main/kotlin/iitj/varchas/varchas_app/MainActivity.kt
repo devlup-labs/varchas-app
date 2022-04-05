@@ -1,4 +1,4 @@
-package com.varchas.varchas_app
+package iitj.varchas.varchas_app
 
 import io.flutter.embedding.android.FlutterActivity
 

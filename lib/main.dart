@@ -14,12 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Varchas',
-
-// <<<<<<< HEAD
       home: LoginScreen(),
-// =======
-//       home:  MyHomePage(),
-// >>>>>>> ce00d782a37dbcb87c0b9cdaeb997c0c97ab184d
     );
   }
 }

@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:varchas_app/screens/choose_sport.dart';
-import 'package:varchas_app/screens/schedule_screen.dart';
+import 'dart:io';
 
-import 'about_us_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:varchas_app/Utils/fetch_data.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'home_page.dart';
-import 'leaderboard_screen.dart';
-import 'menu_screen.dart';
-import 'my_competetion_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,9 +14,28 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  TeamData? teamData;
+  String wrongTeamIdPrompt = "";
+  final TextEditingController teamIdController = TextEditingController();
+  bool fetchedData = false;
+  Widget bottomWidget = const SizedBox(height: 1,);
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetchTeamData().then((td) {
+      teamData = td;
+      fetchedData = true;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size pageSize = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -39,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Image.asset("assets/varchas_text_logo.jpeg", height: pageSize.height * 0.08,),
       ),
       backgroundColor: Colors.grey.withOpacity(1),
+
       body: Container(
         padding: EdgeInsets.all(pageSize.width * 0.025),
         child: Container(
@@ -50,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: pageSize.height * 0.1,),
+              SizedBox(height: pageSize.height * 0.15,),
               const Text(
                 "LOGIN",
                 style: TextStyle(fontWeight: FontWeight.bold,
@@ -73,47 +90,40 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(29),
                 ),
                 child: TextField(
-                  onChanged: (value){},
+                  controller: teamIdController,
+                  autocorrect: false,
                   // cursorColor: kPrimaryColor,
                   decoration: const InputDecoration(
                     icon: Icon(
-                      Icons.mail_outlined,
+                      Icons.key,
                       color: Colors.white,
                     ),
-                    hintText: "Email",
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-                width: pageSize.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.white38,
-                  borderRadius: BorderRadius.circular(29),
-                ),
-                child: TextField(
-                  obscureText: true,
-                  onChanged: (value){},
-                  // cursorColor: kPrimaryColor,
-                  decoration: const InputDecoration(
-                    icon: Icon(
-                      Icons.lock_rounded,
-                      color: Colors.white,
-                    ),
-                    hintText: "Password",
+                    hintText: "Team ID",
                     border: InputBorder.none,
                   ),
                 ),
               ),
               const SizedBox(height: 10,),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()),
-                  );
+                onTap: () async {
+                  String enteredTeamid = teamIdController.text;
+                  if(teamData!.verifyTeamID(enteredTeamid)){
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool('isLoggedIn', true);
+                    prefs.setString('teamId', enteredTeamid);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyHomePage()),
+                    );
+                  }
+                  else{
+                    Fluttertoast.showToast(
+                      msg: "Please enter valid Team ID. Eg. VA-ABC-XYZ69",
+                      backgroundColor: Colors.redAccent,
+                      toastLength: Toast.LENGTH_LONG,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
                 },
                 child: Container(
                   width: pageSize.width * 0.6,
@@ -133,9 +143,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              wrongTeamIdPrompt==""? const SizedBox(height: 1,)
+              :Container(
+                padding: const EdgeInsets.all(5),
+                child: Text(
+                  wrongTeamIdPrompt,
+                  style: const TextStyle(color: Colors.redAccent),
+                ),
+              ),
               const SizedBox(height: 10,),
               GestureDetector(
-                onTap: (){
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setBool('isLoggedIn', false);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const MyHomePage()),
@@ -159,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              bottomWidget,
             ],
           ),
         ),
