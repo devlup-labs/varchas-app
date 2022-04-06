@@ -18,7 +18,7 @@ class _MyCompetitionScreenState extends State<MyCompetitionScreen> {
     Size data = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(1),
+      backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -27,16 +27,16 @@ class _MyCompetitionScreenState extends State<MyCompetitionScreen> {
           children: [
 
             Header(size: data,screenName: 'Upcoming Competitions'),
-            SizedBox(height: data.height*0.01,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:  [
-                DayButton(day: "Team", size: data),
-                DayButton(day: "Solo", size: data),
-
-              ],
-            ),
+            //SizedBox(height: data.height*0.01,),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children:  [
+            //     DayButton(day: "Team", size: data),
+            //     DayButton(day: "Solo", size: data),
+            //
+            //   ],
+            // ),
             SizedBox(height: data.height*0.01,),
             Expanded(
               child: NotificationListener<UserScrollNotification>(

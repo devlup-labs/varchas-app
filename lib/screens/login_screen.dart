@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -59,17 +60,36 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        title: Image.asset("assets/varchas_text_logo.jpeg", height: pageSize.height * 0.08,),
-      ),
-      backgroundColor: Colors.grey.withOpacity(1),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/varchas_textLogo_nobg.png", height: pageSize.height * 0.09,),
+              ],
+            ),
+            SizedBox(width: pageSize.width*0.15,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+              ],
+            ),
 
+          ],
+        ),
+      ),
+      backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: Container(
         padding: EdgeInsets.all(pageSize.width * 0.025),
         child: Container(
           alignment: Alignment.center,
           decoration: const BoxDecoration(
             color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(0)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -94,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: pageSize.width * 0.8,
                 decoration: BoxDecoration(
                   color: Colors.white38,
-                  borderRadius: BorderRadius.circular(29),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextField(
                   controller: teamIdController,

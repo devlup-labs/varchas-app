@@ -15,50 +15,71 @@ class Header extends StatelessWidget {
         children:[
           Container(
             padding: const EdgeInsets.only(
-              top: 15,
-              left: 15,
-              right: 10,
+              top: 3,
+              left: 3,
+              right: 3,
             ),
-            height: size.height * 0.2,
+            height: size.height * 0.21,
             width: size.width,
             decoration: const BoxDecoration(
-              color: Colors.black,
+              color: Color.fromARGB(255,18,7,17),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children:   [
-                showMenuOption? IconButton(
-                  onPressed: ()=> ZoomDrawer.of(context)!.toggle(),
-                  icon: const Icon(Icons.menu,color: Colors.white,),
-                ): const SizedBox(height: 1,),
-                const SizedBox(height: 15,),
-                // const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
-                Image.asset("assets/varchas_text_logo.jpeg", height: size.height * 0.08,),
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children:   [
+                    showMenuOption? IconButton(
+                      onPressed: ()=> ZoomDrawer.of(context)!.toggle(),
+                      icon: const Icon(Icons.menu,color: Colors.white,),
+                    ): IconButton(
+                        onPressed: ()=>Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back,color: Colors.white,)
+                    ),
+                    // const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 10,),
+                        Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(width: size.width*0.17,),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+                  ],
+                )
               ],
             ),
           ),
           Positioned(
-            bottom: 0,
+            bottom: 8,
             left: 0,
             right: 0,
             child: Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              height: 44,
+              //padding: const EdgeInsets.symmetric(horizontal: 5),
+              height: 40,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: const [
                   BoxShadow(
                     offset: Offset(0, 10),
-                    blurRadius: 50,
-                    color: Colors.black45,
+                    blurRadius: 7,
+                    color: Colors.black,
                   ),
                 ],
               ),
@@ -84,9 +105,9 @@ class TeamCard extends StatelessWidget {
     return Container(
         height: size.height*0.12,
         width: size.width*0.90,
-        margin: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: const Color.fromARGB(255,18,7,17),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -164,7 +185,7 @@ class LeaderBoardTeamCard extends StatelessWidget {
     return Container(
         height: size.height*0.08,
         width: size.width*0.90,
-        margin: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10.0),
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
         decoration: BoxDecoration(
           color: Colors.black,
