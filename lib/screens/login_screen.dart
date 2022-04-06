@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("assets/varchas_textLogo_Nobg.png", height: pageSize.height * 0.08,),
+                Image.asset("assets/varchas_textLogo_nobg.png", height: pageSize.height * 0.08,),
               ],
             ),
             // SizedBox(width: pageSize.width*0.15,),
