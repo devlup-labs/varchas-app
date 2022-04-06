@@ -47,17 +47,17 @@ class Header extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const SizedBox(width: 10,),
-                        Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+                        Image.asset("assets/varchas_textLogo_Nobg.png", height: size.height * 0.07,),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(width: size.width*0.17,),
+                SizedBox(width: size.width*0.15,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+                    Image.asset("assets/varchas_Logo_nobg.png", height: size.height * 0.1,),
                   ],
                 )
               ],
