@@ -49,8 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 0,
-        toolbarHeight: MediaQuery.of(context).size.height * 0.20,
+        toolbarHeight: MediaQuery.of(context).size.height * 0.15,
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -61,27 +60,86 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset("assets/varchas_textLogo_nobg.png", height: pageSize.height * 0.08,),
-              ],
+        title:Container(
+          padding: const EdgeInsets.only(
+            top: 25,
+            left: 3,
+            right: 3,
+          ),
+          height: pageSize.height * 0.12,
+          width: pageSize.width,
+          decoration: const BoxDecoration(
+            color: Colors.black87,//fromARGB(255,18,7,17),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(25),
+              bottomRight: Radius.circular(25),
             ),
-            // SizedBox(width: pageSize.width*0.15,),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset("assets/varchas_Logo_nobg.png", height: pageSize.height * 0.09,),
-              ],
-            ),
-
-          ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: pageSize.width*0.035,),
+              Expanded(child: Image.asset("assets/varchas_textLogo_nobg.png",),flex: 2,),
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children:   [
+              //     Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+              //     // showMenuOption? IconButton(
+              //     //   onPressed: ()=> const NavigationDrawer(),// ZoomDrawer.of(context)!.toggle(),
+              //     //   icon: const Icon(Icons.menu,color: Colors.white,),
+              //     // ): IconButton(
+              //     //     onPressed: ()=>Navigator.pop(context),
+              //     //     icon: const Icon(Icons.arrow_back,color: Colors.white,)
+              //     // ),
+              //     // const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+              //     // Row(
+              //     //   mainAxisAlignment: MainAxisAlignment.start,
+              //     //   children: [
+              //     //     const SizedBox(width: 10,),
+              //     //     Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+              //     //   ],
+              //     // ),
+              //   ],
+              // ),
+              SizedBox(width: pageSize.width*0.05,),
+              Expanded(
+                child: Image.asset("assets/varchas_Logo_nobg.png",
+                ),
+                flex: 1,),
+              SizedBox(width: pageSize.width*0.02,),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+              //   ],
+              // )
+            ],
+          ),
         ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       crossAxisAlignment: CrossAxisAlignment.center,
+        //       children: [
+        //         Image.asset("assets/varchas_textLogo_nobg.png", height: pageSize.height * 0.09,),
+        //       ],
+        //     ),
+        //     SizedBox(width: pageSize.width*0.15,),
+        //     Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       crossAxisAlignment: CrossAxisAlignment.center,
+        //       children: [
+        //         Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+        //       ],
+        //     ),
+        //
+        //   ],
+        // ),
       ),
       backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: Container(

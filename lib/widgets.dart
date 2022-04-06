@@ -1,6 +1,6 @@
 // this file has all the widgets that are used in all the screens
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:varchas_app/screens/choose_sport.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:varchas_app/screens/my_competetion_screen.dart';
@@ -14,7 +14,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: size.height * 0.20,
+      height: size.height * 0.15,
       child: Stack(
         children:[
           Container(
@@ -23,10 +23,10 @@ class Header extends StatelessWidget {
               left: 3,
               right: 3,
             ),
-            height: size.height * 0.15,
+            height: size.height * 0.12,
             width: size.width,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255,18,7,17),
+              color: Colors.black87,//fromARGB(255,18,7,17),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25),
@@ -36,8 +36,8 @@ class Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(width: size.width*0.02,),
-                Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+                SizedBox(width: size.width*0.035,),
+                Expanded(child: Image.asset("assets/varchas_textLogo_nobg.png",),flex: 2,),
                 // Column(
                 //   crossAxisAlignment: CrossAxisAlignment.center,
                 //   mainAxisAlignment: MainAxisAlignment.center,
@@ -60,8 +60,13 @@ class Header extends StatelessWidget {
                 //     // ),
                 //   ],
                 // ),
-                SizedBox(width: size.width*0.17,),
-                Image.asset("assets/varchas_Logo_nobg.png", height: size.height * 0.09,),
+
+                SizedBox(width: size.width*0.15,),
+                Expanded(
+                    child: Image.asset("assets/varchas_Logo_nobg.png",
+                    ),
+                flex: 1,),
+                SizedBox(width: size.width*0.02,),
                 // Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,7 +121,7 @@ class TeamCard extends StatelessWidget {
         width: size.width*0.90,
         margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255,18,7,17),
+          color: Colors.black87,//.fromARGB(255,18,7,17),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -142,19 +147,6 @@ class TeamCard extends StatelessWidget {
   }
 }
 
-Widget nextScreenButton(context,path,tittle) =>  FloatingActionButton.extended(
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.vertical(top: Radius.circular(20),bottom: Radius.circular(20))
-  ),
-  onPressed: (){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => path));
-  },
-  elevation: 10,
-  backgroundColor: Colors.white,
-    label:  Text(tittle,style:  const TextStyle( color: Colors.black, fontSize: 15,),),
-
-);
-
 class DayButton extends StatelessWidget {
  // final String path;
   final String day;
@@ -169,8 +161,8 @@ class DayButton extends StatelessWidget {
 
       },
       child: Container(
-        height: size.height*0.05,
-        width: size.width*0.15,
+        height: size.height*0.04,
+        width: size.width*0.20,
         //padding: const EdgeInsets.all(5),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -224,20 +216,75 @@ class LeaderBoardTeamCard extends StatelessWidget {
 }
 
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class NavigationDrawer extends StatefulWidget {
+  String currentPage = "";
+  NavigationDrawer(this.currentPage, {Key? key}) : super(key: key);
+
+  @override
+  State<NavigationDrawer> createState() => _NavigationDrawerState();
+}
+
+class _NavigationDrawerState extends State<NavigationDrawer> {
+  String loggedInTeamText = "";
+  bool isLoggedIn = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    loginStatus().then((value) {
+      setState(() {
+        loggedInTeamText = value;
+      });
+    });
+    super.initState();
+  }
+
+  Future<String> loginStatus() async{
+    final prefs = await SharedPreferences.getInstance();
+    // print("Login status : " + prefs.getBool('isLoggedIn').toString());
+    if(prefs.getBool('isLoggedIn') != true){
+      isLoggedIn = false;
+      return "Not Logged In";
+    }
+    else{
+      String? tid = prefs.getString('teamId');
+      return "TeamID : " + tid.toString();
+    }
+  }
+
+  showTeamId(context){
+    if(isLoggedIn){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const SizedBox(height: 40,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            child: Text(
+              loggedInTeamText,
+              style: const TextStyle(fontSize: 20),
+            ),
+          ),
+          const Divider(thickness: 2,),
+        ],
+      );
+    }
+    else{
+      return buildHeader(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return  Drawer(
-      backgroundColor:  Color.fromRGBO(231, 217, 234, 1),
+      backgroundColor: const Color.fromRGBO(231, 217, 234, 1),
       elevation: 10,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            buildHeader(context),
-            buildMenuItems(context),
+            showTeamId(context),
+            buildMenuItems(context, widget.currentPage, isLoggedIn),
           ],
         ),
       ),
@@ -251,7 +298,7 @@ Widget buildHeader(BuildContext context) => Container(
   ),
 );
 
-Widget buildMenuItems(BuildContext context) => Container(
+Widget buildMenuItems(BuildContext context, String currentPage, bool isLoggedIn) => Container(
   padding: const EdgeInsets.all(15),
   child:   Wrap(
     runSpacing: 10,
@@ -261,8 +308,13 @@ Widget buildMenuItems(BuildContext context) => Container(
          title: const Text('Schedule',),
          onTap: (){
            Navigator.pop(context);
-           Navigator.push(context, MaterialPageRoute(builder: (context) => const ScheduleScreen(),),
-           );
+           if(currentPage != 's')
+           {
+             Navigator.push(
+               context,
+               MaterialPageRoute(builder: (context) => const ScheduleScreen(),),
+             );
+           }
          },
        ),
        ListTile(
@@ -270,20 +322,30 @@ Widget buildMenuItems(BuildContext context) => Container(
          title: const Text('Leaderboard',),
          onTap: (){
            Navigator.pop(context);
-           Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseSportScreen(),),
-           );
+           if(currentPage != 'l')
+           {
+             Navigator.push(
+               context,
+               MaterialPageRoute(builder: (context) => const ChooseSportScreen(),),
+             );
+           }
          },
        ),
-       ListTile(
+       isLoggedIn? ListTile(
          leading: const Icon(Icons.schedule,color: Colors.black),
          title: const Text('My Competetion',),
          onTap: (){
            Navigator.pop(context);
-           Navigator.push(context, MaterialPageRoute(builder: (context) => const MyCompetitionScreen(),),
-           );
+           if(currentPage != 'mc')
+           {
+             Navigator.push(
+               context,
+               MaterialPageRoute(builder: (context) => const MyCompetitionScreen(),),
+             );
+           }
          },
-       ),
-       ListTile(
+       ): const Divider(),
+       isLoggedIn? ListTile(
          leading: const Icon(Icons.logout,color: Colors.black),
          title: const Text('Log Out'),
          onTap: (){
@@ -291,16 +353,16 @@ Widget buildMenuItems(BuildContext context) => Container(
            showDialog(
              context: context,
              builder:(_)=> AlertDialog(
-               title: Text("Log Out",style: TextStyle(color: Colors.white),),
-               content: Text("Do you want to Log Out?",style: TextStyle(color: Colors.white),),
+               title: const Text("Log Out",style: TextStyle(color: Colors.white),),
+               content: const Text("Do you want to Log Out?",style: TextStyle(color: Colors.white),),
                actions: [
                  TextButton(
                      onPressed: (){
                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen(),), (route) => false);
                        },
-                     child: Text("Yes",)
+                     child: const Text("Yes",)
                  ),
-                 TextButton(onPressed: (){Navigator.pop(context);}, child: Text("No",)),
+                 TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("No",)),
 
                ],
                elevation: 24,
@@ -308,6 +370,16 @@ Widget buildMenuItems(BuildContext context) => Container(
              ),
            );
 
+         },
+       )
+       :ListTile(
+         leading: const Icon(Icons.login,color: Colors.black),
+         title: const Text('Log In'),
+         onTap: (){
+           Navigator.pushAndRemoveUntil(
+             context,
+             MaterialPageRoute(builder: (context) => const LoginScreen(),), (route) => false,
+           );
          },
        ),
      ]
