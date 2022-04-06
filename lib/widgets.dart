@@ -61,7 +61,7 @@ class Header extends StatelessWidget {
                 //   ],
                 // ),
                 SizedBox(width: size.width*0.17,),
-                Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+                Image.asset("assets/varchas_Logo_nobg.png", height: size.height * 0.09,),
                 // Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   crossAxisAlignment: CrossAxisAlignment.center,
