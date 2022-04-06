@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:varchas_app/screens/home_page.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:varchas_app/screens/schedule_screen.dart';
 
 
 void main() {
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
     await Future.delayed(const Duration(milliseconds: 1500), () {});
     setState(() {
       if(isLoggedIn == true){
-        homeWidget =  const MyHomePage();
+        homeWidget =  const ScheduleScreen();//const MyHomePage();
       }
       else{
         homeWidget = const LoginScreen();

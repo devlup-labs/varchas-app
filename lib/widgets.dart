@@ -1,6 +1,10 @@
 // this file has all the widgets that are used in all the screens
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:varchas_app/screens/choose_sport.dart';
+import 'package:varchas_app/screens/login_screen.dart';
+import 'package:varchas_app/screens/my_competetion_screen.dart';
+import 'package:varchas_app/screens/schedule_screen.dart';
 
 class Header extends StatelessWidget {
   final Size size;
@@ -10,7 +14,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: size.height * 0.24,
+      height: size.height * 0.20,
       child: Stack(
         children:[
           Container(
@@ -19,7 +23,7 @@ class Header extends StatelessWidget {
               left: 3,
               right: 3,
             ),
-            height: size.height * 0.21,
+            height: size.height * 0.15,
             width: size.width,
             decoration: const BoxDecoration(
               color: Color.fromARGB(255,18,7,17),
@@ -29,42 +33,47 @@ class Header extends StatelessWidget {
               ),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children:   [
-                    showMenuOption? IconButton(
-                      onPressed: ()=> ZoomDrawer.of(context)!.toggle(),
-                      icon: const Icon(Icons.menu,color: Colors.white,),
-                    ): IconButton(
-                        onPressed: ()=>Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back,color: Colors.white,)
-                    ),
-                    // const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SizedBox(width: 10,),
-                        Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
-                      ],
-                    ),
-                  ],
-                ),
+                SizedBox(width: size.width*0.02,),
+                Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children:   [
+                //     Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+                //     // showMenuOption? IconButton(
+                //     //   onPressed: ()=> const NavigationDrawer(),// ZoomDrawer.of(context)!.toggle(),
+                //     //   icon: const Icon(Icons.menu,color: Colors.white,),
+                //     // ): IconButton(
+                //     //     onPressed: ()=>Navigator.pop(context),
+                //     //     icon: const Icon(Icons.arrow_back,color: Colors.white,)
+                //     // ),
+                //     // const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
+                //     // Row(
+                //     //   mainAxisAlignment: MainAxisAlignment.start,
+                //     //   children: [
+                //     //     const SizedBox(width: 10,),
+                //     //     Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+                //     //   ],
+                //     // ),
+                //   ],
+                // ),
                 SizedBox(width: size.width*0.17,),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
-                  ],
-                )
+                Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+                //   ],
+                // )
               ],
             ),
           ),
           Positioned(
-            bottom: 8,
+            bottom: 14,
             left: 0,
             right: 0,
             child: Container(
@@ -213,3 +222,94 @@ class LeaderBoardTeamCard extends StatelessWidget {
 
   }
 }
+
+
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Drawer(
+      backgroundColor:  Color.fromRGBO(231, 217, 234, 1),
+      elevation: 10,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            buildHeader(context),
+            buildMenuItems(context),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Widget buildHeader(BuildContext context) => Container(
+  padding: EdgeInsets.only(
+    top: MediaQuery.of(context).padding.top,
+  ),
+);
+
+Widget buildMenuItems(BuildContext context) => Container(
+  padding: const EdgeInsets.all(15),
+  child:   Wrap(
+    runSpacing: 10,
+     children:[
+       ListTile(
+         leading: const Icon(Icons.calendar_today,color: Colors.black),
+         title: const Text('Schedule',),
+         onTap: (){
+           Navigator.pop(context);
+           Navigator.push(context, MaterialPageRoute(builder: (context) => const ScheduleScreen(),),
+           );
+         },
+       ),
+       ListTile(
+         leading: const Icon(Icons.leaderboard_sharp,color: Colors.black),
+         title: const Text('Leaderboard',),
+         onTap: (){
+           Navigator.pop(context);
+           Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseSportScreen(),),
+           );
+         },
+       ),
+       ListTile(
+         leading: const Icon(Icons.schedule,color: Colors.black),
+         title: const Text('My Competetion',),
+         onTap: (){
+           Navigator.pop(context);
+           Navigator.push(context, MaterialPageRoute(builder: (context) => const MyCompetitionScreen(),),
+           );
+         },
+       ),
+       ListTile(
+         leading: const Icon(Icons.logout,color: Colors.black),
+         title: const Text('Log Out'),
+         onTap: (){
+           //Navigator.pop(context);
+           showDialog(
+             context: context,
+             builder:(_)=> AlertDialog(
+               title: Text("Log Out",style: TextStyle(color: Colors.white),),
+               content: Text("Do you want to Log Out?",style: TextStyle(color: Colors.white),),
+               actions: [
+                 TextButton(
+                     onPressed: (){
+                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen(),), (route) => false);
+                       },
+                     child: Text("Yes",)
+                 ),
+                 TextButton(onPressed: (){Navigator.pop(context);}, child: Text("No",)),
+
+               ],
+               elevation: 24,
+               backgroundColor: const Color.fromRGBO(35, 14, 33, 1.0),
+             ),
+           );
+
+         },
+       ),
+     ]
+  ),
+);

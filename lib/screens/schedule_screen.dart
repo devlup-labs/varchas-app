@@ -17,7 +17,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     Size data = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(35, 14, 33, 25),
+      backgroundColor: const Color.fromRGBO(35, 14, 33, 1),
+      appBar: AppBar(
+        toolbarHeight: data.height*0.05,
+        backgroundColor: const Color.fromARGB(255,18,7,17),
+      ),
+      drawer: const NavigationDrawer(),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -74,4 +79,5 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     );
   }
 }
+
 
