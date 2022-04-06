@@ -16,6 +16,11 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     Size data = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: data.height*0.05,
+        backgroundColor: const Color.fromARGB(255,18,7,17),
+        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back)),
+      ),
       backgroundColor: const Color.fromRGBO(35, 14, 33, 25),
 
       body: SafeArea(

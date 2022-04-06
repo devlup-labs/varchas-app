@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:varchas_app/Utils/fetch_data.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:varchas_app/screens/schedule_screen.dart';
 import 'home_page.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -148,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     prefs.setString('teamId', enteredTeamid);
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyHomePage()),
+                      MaterialPageRoute(builder: (context) => const ScheduleScreen()),
                     );
                   }
                   else{
@@ -185,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   prefs.setBool('isLoggedIn', false);
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()),
+                    MaterialPageRoute(builder: (context) => const ScheduleScreen()),
                   );
                 },
                 child: Container(

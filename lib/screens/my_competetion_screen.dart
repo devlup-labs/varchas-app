@@ -18,6 +18,11 @@ class _MyCompetitionScreenState extends State<MyCompetitionScreen> {
     Size data = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: data.height*0.05,
+        backgroundColor: const Color.fromARGB(255,18,7,17),
+      ),
+      drawer: const NavigationDrawer(),
       backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: SafeArea(
         child: Column(
