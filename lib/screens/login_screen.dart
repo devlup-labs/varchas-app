@@ -16,7 +16,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   TeamData? teamData;
-  String wrongTeamIdPrompt = "";
   final TextEditingController teamIdController = TextEditingController();
   bool fetchedData = false;
   Widget bottomWidget = const SizedBox(height: 1,);
@@ -25,11 +24,19 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    updateLoginData();
     fetchTeamData().then((td) {
       teamData = td;
-      fetchedData = true;
+      setState(() {
+        fetchedData = true;
+      });
     });
     super.initState();
+  }
+
+  updateLoginData() async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
   }
 
   @override
@@ -107,6 +114,14 @@ class _LoginScreenState extends State<LoginScreen> {
               GestureDetector(
                 onTap: () async {
                   String enteredTeamid = teamIdController.text;
+                  if(fetchedData == false){
+                    Fluttertoast.showToast(
+                      msg: "App connecting.. Please try again",
+                      backgroundColor: Colors.blueGrey.shade600,
+                      toastLength: Toast.LENGTH_SHORT,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
                   if(teamData!.verifyTeamID(enteredTeamid)){
                     final prefs = await SharedPreferences.getInstance();
                     prefs.setBool('isLoggedIn', true);
@@ -120,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Fluttertoast.showToast(
                       msg: "Please enter valid Team ID. Eg. VA-ABC-XYZ69",
                       backgroundColor: Colors.redAccent,
-                      toastLength: Toast.LENGTH_LONG,
+                      toastLength: Toast.LENGTH_SHORT,
                       timeInSecForIosWeb: 1,
                     );
                   }
@@ -141,14 +156,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text("Login", style: TextStyle(color: Colors.white),),
                     ],
                   ),
-                ),
-              ),
-              wrongTeamIdPrompt==""? const SizedBox(height: 1,)
-              :Container(
-                padding: const EdgeInsets.all(5),
-                child: Text(
-                  wrongTeamIdPrompt,
-                  style: const TextStyle(color: Colors.redAccent),
                 ),
               ),
               const SizedBox(height: 10,),
