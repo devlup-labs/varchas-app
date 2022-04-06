@@ -20,7 +20,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       backgroundColor: const Color.fromRGBO(35, 14, 33, 1),
       appBar: AppBar(
         toolbarHeight: data.height*0.05,
-        backgroundColor: const Color.fromARGB(255,18,7,17),
+        backgroundColor:  Colors.black87,//.fromARGB(255,18,7,17),
       ),
       drawer: const NavigationDrawer(),
       body: SafeArea(

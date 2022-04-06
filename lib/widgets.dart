@@ -14,7 +14,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: size.height * 0.20,
+      height: size.height * 0.15,
       child: Stack(
         children:[
           Container(
@@ -23,10 +23,10 @@ class Header extends StatelessWidget {
               left: 3,
               right: 3,
             ),
-            height: size.height * 0.15,
+            height: size.height * 0.12,
             width: size.width,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255,18,7,17),
+              color: Colors.black87,//fromARGB(255,18,7,17),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25),
@@ -36,8 +36,8 @@ class Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(width: size.width*0.02,),
-                Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
+                SizedBox(width: size.width*0.035,),
+                Expanded(child: Image.asset("assets/varchas_textLogo_nobg.png",),flex: 2,),
                 // Column(
                 //   crossAxisAlignment: CrossAxisAlignment.center,
                 //   mainAxisAlignment: MainAxisAlignment.center,
@@ -60,8 +60,12 @@ class Header extends StatelessWidget {
                 //     // ),
                 //   ],
                 // ),
-                SizedBox(width: size.width*0.17,),
-                Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
+                SizedBox(width: size.width*0.15,),
+                Expanded(
+                    child: Image.asset("assets/varchas_Logo_nobg.png",
+                    ),
+                flex: 1,),
+                SizedBox(width: size.width*0.02,),
                 // Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,7 +120,7 @@ class TeamCard extends StatelessWidget {
         width: size.width*0.90,
         margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255,18,7,17),
+          color: Colors.black87,//.fromARGB(255,18,7,17),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -169,8 +173,8 @@ class DayButton extends StatelessWidget {
 
       },
       child: Container(
-        height: size.height*0.05,
-        width: size.width*0.15,
+        height: size.height*0.04,
+        width: size.width*0.20,
         //padding: const EdgeInsets.all(5),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),

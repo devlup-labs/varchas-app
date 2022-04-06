@@ -20,7 +20,7 @@ class _MyCompetitionScreenState extends State<MyCompetitionScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: data.height*0.05,
-        backgroundColor: const Color.fromARGB(255,18,7,17),
+        backgroundColor: Colors.black87//fromARGB(255,18,7,17),
       ),
       drawer: const NavigationDrawer(),
       backgroundColor: Color.fromRGBO(35, 14, 33, 25),
