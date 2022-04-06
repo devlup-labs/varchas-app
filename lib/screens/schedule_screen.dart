@@ -17,7 +17,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     Size data = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(1),
+      backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
