@@ -1,6 +1,11 @@
-import 'package:flutter/material.dart';
-import 'home_page.dart';
 
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:varchas_app/Utils/fetch_data.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'home_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,9 +15,35 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  TeamData? teamData;
+  final TextEditingController teamIdController = TextEditingController();
+  bool fetchedData = false;
+  Widget bottomWidget = const SizedBox(height: 1,);
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    updateLoginData();
+    fetchTeamData().then((td) {
+      teamData = td;
+      setState(() {
+        fetchedData = true;
+      });
+    });
+    super.initState();
+  }
+
+  updateLoginData() async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size pageSize = MediaQuery.of(context).size;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -63,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: pageSize.height * 0.1,),
+              SizedBox(height: pageSize.height * 0.15,),
               const Text(
                 "LOGIN",
                 style: TextStyle(fontWeight: FontWeight.bold,
@@ -86,47 +117,48 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextField(
-                  onChanged: (value){},
+                  controller: teamIdController,
+                  autocorrect: false,
                   // cursorColor: kPrimaryColor,
                   decoration: const InputDecoration(
                     icon: Icon(
-                      Icons.mail_outlined,
+                      Icons.key,
                       color: Colors.white,
                     ),
-                    hintText: "Email",
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-                width: pageSize.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.white38,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextField(
-                  obscureText: true,
-                  onChanged: (value){},
-                  // cursorColor: kPrimaryColor,
-                  decoration: const InputDecoration(
-                    icon: Icon(
-                      Icons.lock_rounded,
-                      color: Colors.white,
-                    ),
-                    hintText: "Password",
+                    hintText: "Team ID",
                     border: InputBorder.none,
                   ),
                 ),
               ),
               const SizedBox(height: 10,),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyHomePage()),
-                  );
+                onTap: () async {
+                  String enteredTeamid = teamIdController.text;
+                  if(fetchedData == false){
+                    Fluttertoast.showToast(
+                      msg: "App connecting.. Please try again",
+                      backgroundColor: Colors.blueGrey.shade600,
+                      toastLength: Toast.LENGTH_SHORT,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
+                  if(teamData!.verifyTeamID(enteredTeamid)){
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool('isLoggedIn', true);
+                    prefs.setString('teamId', enteredTeamid);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyHomePage()),
+                    );
+                  }
+                  else{
+                    Fluttertoast.showToast(
+                      msg: "Please enter valid Team ID. Eg. VA-ABC-XYZ69",
+                      backgroundColor: Colors.redAccent,
+                      toastLength: Toast.LENGTH_SHORT,
+                      timeInSecForIosWeb: 1,
+                    );
+                  }
                 },
                 child: Container(
                   width: pageSize.width * 0.6,
@@ -148,7 +180,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 10,),
               GestureDetector(
-                onTap: (){
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setBool('isLoggedIn', false);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const MyHomePage()),
@@ -172,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              bottomWidget,
             ],
           ),
         ),
