@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   String enteredTeamid = teamIdController.text;
                   if(fetchedData == false){
                     Fluttertoast.showToast(
-                      msg: "App connecting.. Please try again",
+                      msg: "App connecting, Please wait a few seconds..",
                       backgroundColor: Colors.blueGrey.shade600,
                       toastLength: Toast.LENGTH_SHORT,
                       timeInSecForIosWeb: 1,

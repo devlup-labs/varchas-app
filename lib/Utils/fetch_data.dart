@@ -96,6 +96,25 @@ getScheduleResults(int day, {String teamId = ""}) async {
   if(teamId == ""){
     var output = results;
     output = output.where((element) => element['date'] == date).toList();
+    output.sort((a,b) {
+      if(int.parse(a['event']) < int.parse(b['event'])){
+        return -1;
+      }
+      else if(int.parse(a['event']) > int.parse(b['event'])){
+        return 1;
+      }
+      else{
+        if(int.parse(a['time'].toString().substring(0, 2)) < int.parse(b['time'].toString().substring(0, 2))){
+          return -1;
+        }
+        else if(int.parse(a['time'].toString().substring(0, 2)) > int.parse(b['time'].toString().substring(0, 2))){
+          return 1;
+        }
+        else{
+          return 0;
+        }
+      }
+    });
     return output;
   }
   else{

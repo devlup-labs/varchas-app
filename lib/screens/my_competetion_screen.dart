@@ -114,7 +114,6 @@ class _MyCompetitionScreenState extends State<MyCompetitionScreen> {
                 dayButton(1, data),
                 dayButton(2, data),
                 dayButton(3, data),
-                dayButton(4, data),
               ],
             ),
             SizedBox(height: data.height*0.01,),
