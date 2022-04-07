@@ -13,7 +13,7 @@ final sportsChoices = {
   '9': 'Volleyball',
   '10': 'Badminton-Mixed doubles',
 };
-
+final dates = ["2022-04-07", "2022-04-08", "2022-04-09", "2022-04-10"];
 final sportsList = ['Athletics', 'Badminton', 'Basketball', 'Chess', 'Cricket','Football','Table Tennis','Tennis','Volleyball', 'Badminton-Mixed doubles',];
 final sportUrlExceptions = {'Basketball': 'bb', 'Volleyball' : 'vb', 'Table Tennis': 'tt', 'Badminton-Mixed doubles': 'badminton'};
 final unLoggedInScreens = {'Schedule': const ScheduleScreen(), 'Leaderboard': const ChooseSportScreen()};

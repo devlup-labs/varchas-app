@@ -25,6 +25,7 @@ Future<TeamData> fetchTeamData() async {
 
 class TeamData {
   List<dynamic> teamIds = [];
+  List<dynamic> teamNames = [];
   List<dynamic> results = [];
 
 
@@ -45,6 +46,7 @@ class TeamData {
     print("Successfully fetched ${results.length} teams !!");
     for(int i = 0; i<results.length; i++){
       teamIds.add(results[i]['teamId']);
+      teamNames.add(results[i]['college']);
     }
   }
 
@@ -69,5 +71,40 @@ class TeamData {
     );
     output = output.where((element) => element['sport'] == sportNumber).toList();
     return output;
+  }
+}
+
+getScheduleResults(int day, {String teamId = ""}) async {
+  List<dynamic> results = [];
+  String date = dates[day-1];
+
+  http.Response response;
+  dynamic json;
+
+  String? nextLink = "https://varchas22.in/events/MatchApi/";
+  while(nextLink != null){
+    response = await http.get(Uri.parse(nextLink));
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load album');
+    }
+    json = jsonDecode(response.body);
+    results += json['results'];
+    nextLink = json['next'];
+  }
+  // print("Successfully fetched ${results.length} matches !!");
+
+  if(teamId == ""){
+    var output = results;
+    output = output.where((element) => element['date'] == date).toList();
+    return output;
+  }
+  else{
+    results = results.where((element) => element['date'] == date).toList();
+    var output1 = results;
+    output1 = output1.where((element) => element['team1'] == teamId).toList();
+
+    var output2 = results;
+    output2 = output2.where((element) => element['team2'] == teamId).toList();
+    return output1+output2;
   }
 }
