@@ -32,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         fetchedData = true;
       });
+      updateTeamData(td.teamIds, td.teamNames);
     });
     super.initState();
   }
@@ -39,6 +40,16 @@ class _LoginScreenState extends State<LoginScreen> {
   updateLoginData() async{
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedIn', false);
+  }
+
+  updateTeamData(tids, tnames) async{
+    final prefs = await SharedPreferences.getInstance();
+    if(prefs.containsKey('teamIds') == false){
+      prefs.setStringList('teamIds', tids);
+    }
+    if(prefs.containsKey('teamIds') == false){
+      prefs.setStringList('teamNames', tnames);
+    }
   }
 
   @override
@@ -81,28 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               SizedBox(width: pageSize.width*0.035,),
               Expanded(child: Image.asset("assets/varchas_textLogo_nobg.png",),flex: 2,),
-              // Column(
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children:   [
-              //     Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
-              //     // showMenuOption? IconButton(
-              //     //   onPressed: ()=> const NavigationDrawer(),// ZoomDrawer.of(context)!.toggle(),
-              //     //   icon: const Icon(Icons.menu,color: Colors.white,),
-              //     // ): IconButton(
-              //     //     onPressed: ()=>Navigator.pop(context),
-              //     //     icon: const Icon(Icons.arrow_back,color: Colors.white,)
-              //     // ),
-              //     // const Text('Varchas',style: TextStyle(color: Colors.white,fontSize:30,fontWeight: FontWeight.bold),),
-              //     // Row(
-              //     //   mainAxisAlignment: MainAxisAlignment.start,
-              //     //   children: [
-              //     //     const SizedBox(width: 10,),
-              //     //     Image.asset("assets/varchas_textLogo_nobg.png", height: size.height * 0.09,),
-              //     //   ],
-              //     // ),
-              //   ],
-              // ),
               SizedBox(width: pageSize.width*0.05,),
               Expanded(
                 child: Image.asset("assets/varchas_Logo_nobg.png",
@@ -112,27 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       children: [
-        //         Image.asset("assets/varchas_textLogo_nobg.png", height: pageSize.height * 0.09,),
-        //       ],
-        //     ),
-        //     SizedBox(width: pageSize.width*0.15,),
-        //     Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       children: [
-        //         Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
-        //       ],
-        //     ),
-        //
-        //   ],
-        // ),
       ),
       backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: Container(
@@ -231,6 +199,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
+              ),
+              const SizedBox(height: 10,),
+              SizedBox(
+                child: const Divider(color: Colors.white70, ),
+                width: pageSize.width * 0.3,
               ),
               const SizedBox(height: 10,),
               GestureDetector(

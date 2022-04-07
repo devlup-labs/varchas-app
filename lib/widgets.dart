@@ -1,5 +1,6 @@
 // this file has all the widgets that are used in all the screens
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:varchas_app/screens/choose_sport.dart';
 import 'package:varchas_app/screens/login_screen.dart';
@@ -109,10 +110,10 @@ class Header extends StatelessWidget {
 class TeamCard extends StatelessWidget {
   final String teamOneName;
   final String teamTwoName;
-  final String sportName;
+  final String? sportName;
   final String time;
   final Size size;
-  const TeamCard({Key? key,required this.teamTwoName,required this.teamOneName,required this.size,required this.sportName,required this.time}) : super(key: key);
+  const TeamCard({Key? key,required this.teamTwoName,required this.teamOneName,required this.size,this.sportName,required this.time}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,16 +129,36 @@ class TeamCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text( teamOneName, style: const TextStyle( color: Colors.white, fontSize: 19,),),
+            Container(
+              width: size.width * 0.25,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text( teamOneName,
+                  style: const TextStyle( color: Colors.white, fontSize: 15,),
+                  maxLines: 1,
+                ),
+              ),
+            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text( sportName, style: const TextStyle( color: Colors.red, fontSize: 15,),),
+                Text( sportName!, style: const TextStyle( color: Colors.red, fontSize: 15,),),
                 Text( time, style: const TextStyle( color: Colors.white, fontSize: 10,),),
               ],
             ),
-            Text( teamOneName, style: const TextStyle( color: Colors.white, fontSize: 19,),),
+            Container(
+              alignment: Alignment.center,
+              width: size.width * 0.28,
+              height: size.height * 0.1,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text( teamTwoName,
+                  style: const TextStyle( color: Colors.white, fontSize: 15,),
+                  maxLines: 1,
+                ),
+              ),
+            ),
 
           ],
         )
@@ -404,7 +425,7 @@ Widget buildMenuItems(BuildContext context, String currentPage, bool isLoggedIn)
                  ),
                ],
                elevation: 24,
-               backgroundColor: const Color.fromRGBO(35, 14, 33, 1.0),
+               backgroundColor: Colors.grey.shade800,
              ),
            );
 
