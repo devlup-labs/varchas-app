@@ -18,6 +18,12 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
   Widget build(BuildContext context) {
     Size data = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: data.height*0.05,
+        backgroundColor:  Colors.black87,//.fromARGB(255,18,7,17),
+
+      ),
+      drawer: NavigationDrawer('l'),
       backgroundColor: Color.fromRGBO(35, 14, 33, 25),
       body: SafeArea(
         child: Column(
@@ -57,9 +63,10 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
   Widget displaySportIcon(String sportName){
     return GestureDetector(
       onTap: () {
+        int sportNumber = sportsList.indexOf(sportName)+1;
         Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const LeaderBoardScreen(),
+            MaterialPageRoute(builder: (context) => LeaderBoardScreen(sportNumber.toString()),
             ),
         );
       },

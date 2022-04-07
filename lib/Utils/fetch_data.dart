@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:varchas_app/Utils/constants.dart';
 
 Future<TeamData> fetchTeamData() async {
   // final response = await http
@@ -47,7 +48,26 @@ class TeamData {
     }
   }
 
-  verifyTeamID(String enteredId){
-    return teamIds.contains(enteredId);
+  verifyTeamIDandGetDetails(String enteredId){
+    return teamIds.indexOf(enteredId);
+  }
+
+  getSportResults(String sportNumber){
+    var output = results;
+    output.sort(
+          (s1, s2) {
+            if(s1['score'] < s2['score']){
+              return -1;
+            }
+            else if(s1['score'] > s2['score']){
+              return 1;
+            }
+            else{
+              return 0;
+            }
+          }
+    );
+    output = output.where((element) => element['sport'] == sportNumber).toList();
+    return output;
   }
 }
