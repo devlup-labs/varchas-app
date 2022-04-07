@@ -23,7 +23,7 @@ class Header extends StatelessWidget {
               left: 3,
               right: 3,
             ),
-            height: size.height * 0.12,
+            height: size.height * 0.13,
             width: size.width,
             decoration: const BoxDecoration(
               color: Colors.black87,//fromARGB(255,18,7,17),
@@ -78,7 +78,7 @@ class Header extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 14,
+            bottom: size.height * 0.01,
             left: 0,
             right: 0,
             child: Container(
@@ -201,12 +201,16 @@ class LeaderBoardTeamCard extends StatelessWidget {
             ),
             Text( rank, style: const TextStyle( color: Colors.white, fontSize: 19,),),
             const SizedBox(
-              width: 15,
+              width: 30,
             ),
-            Expanded(child: Center(child: Text( teamName, style: const TextStyle( color: Colors.white, fontSize: 19,),))),
+            Expanded(child: Text( teamName, style: const TextStyle( color: Colors.white, fontSize: 16,),)),
+            const SizedBox(
+              width: 8,
+            ),
             Text( score, style: const TextStyle( color: Colors.white, fontSize: 19,),),
-
-
+            const SizedBox(
+              width: 5,
+            ),
           ],
         )
 
@@ -225,7 +229,9 @@ class NavigationDrawer extends StatefulWidget {
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
-  String loggedInTeamText = "";
+  String loggedInTeamID = "";
+  String loggedInTeamName = "";
+
   bool isLoggedIn = true;
 
   @override
@@ -233,22 +239,24 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     // TODO: implement initState
     loginStatus().then((value) {
       setState(() {
-        loggedInTeamText = value;
+        loggedInTeamID = value[0];
+        loggedInTeamName = value[1];
       });
     });
     super.initState();
   }
 
-  Future<String> loginStatus() async{
+  Future<List<String>> loginStatus() async{
     final prefs = await SharedPreferences.getInstance();
     // print("Login status : " + prefs.getBool('isLoggedIn').toString());
     if(prefs.getBool('isLoggedIn') != true){
       isLoggedIn = false;
-      return "Not Logged In";
+      return ["Not Logged In", ""];
     }
     else{
-      String? tid = prefs.getString('teamId');
-      return "TeamID : " + tid.toString();
+      List<String>? team = prefs.getStringList('teamData');
+      return ["TeamID : " + team![0].toString() , team[1]];
+
     }
   }
 
@@ -261,8 +269,15 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
             child: Text(
-              loggedInTeamText,
+              loggedInTeamID,
               style: const TextStyle(fontSize: 20),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            child: Text(
+              loggedInTeamName.toUpperCase(),
+              style: const TextStyle(fontSize: 15),
             ),
           ),
           const Divider(thickness: 2,),
@@ -310,9 +325,9 @@ Widget buildMenuItems(BuildContext context, String currentPage, bool isLoggedIn)
            Navigator.pop(context);
            if(currentPage != 's')
            {
-             Navigator.push(
+             Navigator.pushAndRemoveUntil(
                context,
-               MaterialPageRoute(builder: (context) => const ScheduleScreen(),),
+               MaterialPageRoute(builder: (context) => const ScheduleScreen(),), (route) => false,
              );
            }
          },
@@ -324,24 +339,48 @@ Widget buildMenuItems(BuildContext context, String currentPage, bool isLoggedIn)
            Navigator.pop(context);
            if(currentPage != 'l')
            {
-             Navigator.push(
-               context,
-               MaterialPageRoute(builder: (context) => const ChooseSportScreen(),),
-             );
-           }
+             if(currentPage == 's'){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ChooseSportScreen(),
+                  ),
+                );
+              }
+             else{
+               Navigator.pushReplacement(
+                 context,
+                 MaterialPageRoute(
+                   builder: (context) => const ChooseSportScreen(),
+                 ),
+               );
+             }
+            }
          },
        ),
        isLoggedIn? ListTile(
          leading: const Icon(Icons.schedule,color: Colors.black),
-         title: const Text('My Competetion',),
+         title: const Text('My Competitions',),
          onTap: (){
            Navigator.pop(context);
            if(currentPage != 'mc')
            {
-             Navigator.push(
-               context,
-               MaterialPageRoute(builder: (context) => const MyCompetitionScreen(),),
-             );
+             if(currentPage == 's'){
+               Navigator.push(
+                 context,
+                 MaterialPageRoute(
+                   builder: (context) => const MyCompetitionScreen(),
+                 ),
+               );
+             }
+             else{
+               Navigator.pushReplacement(
+                 context,
+                 MaterialPageRoute(
+                   builder: (context) => const MyCompetitionScreen(),
+                 ),
+               );
+             }
            }
          },
        ): const Divider(),
@@ -354,16 +393,15 @@ Widget buildMenuItems(BuildContext context, String currentPage, bool isLoggedIn)
              context: context,
              builder:(_)=> AlertDialog(
                title: const Text("Log Out",style: TextStyle(color: Colors.white),),
-               content: const Text("Do you want to Log Out?",style: TextStyle(color: Colors.white),),
+               content: const Text("Do you want to Logout?",style: TextStyle(color: Colors.white),),
                actions: [
+                 TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("No",)),
                  TextButton(
                      onPressed: (){
                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen(),), (route) => false);
                        },
                      child: const Text("Yes",)
                  ),
-                 TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("No",)),
-
                ],
                elevation: 24,
                backgroundColor: const Color.fromRGBO(35, 14, 33, 1.0),

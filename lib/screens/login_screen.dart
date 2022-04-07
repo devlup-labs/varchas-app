@@ -109,13 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 flex: 1,),
               SizedBox(width: pageSize.width*0.02,),
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: [
-              //     Image.asset("assets/varchas_Logo_nobg.png", scale: 2.9,),
-              //   ],
-              // )
             ],
           ),
         ),
@@ -201,10 +194,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       timeInSecForIosWeb: 1,
                     );
                   }
-                  if(teamData!.verifyTeamID(enteredTeamid)){
+                  int teamIndex = teamData!.verifyTeamIDandGetDetails(enteredTeamid);
+                  if(teamIndex != -1){
+                    dynamic team = teamData!.results[teamIndex];
                     final prefs = await SharedPreferences.getInstance();
                     prefs.setBool('isLoggedIn', true);
-                    prefs.setString('teamId', enteredTeamid);
+                    prefs.setStringList('teamData', [team['teamId'], team['college'], team['sport'], team['score'].toString()]);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => const ScheduleScreen()),

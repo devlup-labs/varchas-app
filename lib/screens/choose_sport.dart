@@ -63,9 +63,10 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
   Widget displaySportIcon(String sportName){
     return GestureDetector(
       onTap: () {
+        int sportNumber = sportsList.indexOf(sportName)+1;
         Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const LeaderBoardScreen(),
+            MaterialPageRoute(builder: (context) => LeaderBoardScreen(sportNumber.toString()),
             ),
         );
       },
