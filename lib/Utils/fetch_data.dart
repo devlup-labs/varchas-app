@@ -59,10 +59,10 @@ class TeamData {
     output.sort(
           (s1, s2) {
             if(s1['score'] < s2['score']){
-              return -1;
+              return 1;
             }
             else if(s1['score'] > s2['score']){
-              return 1;
+              return -1;
             }
             else{
               return 0;

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:varchas_app/screens/home_page.dart';
+import 'package:flutter/services.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
