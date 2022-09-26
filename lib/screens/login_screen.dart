@@ -1,6 +1,4 @@
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:varchas_app/Utils/fetch_data.dart';
@@ -32,22 +30,24 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         fetchedData = true;
       });
-      updateTeamData(td.teamIds, td.teamNames);
+      var tid = td.teamIds.map((e) => e.toString()).toList();
+       var tnames = td.teamNames.map((e) => e.toString()).toList();
+      updateTeamData(tid, tnames);
     });
     super.initState();
   }
 
-  updateLoginData() async{
+  updateLoginData() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedIn', false);
   }
 
-  updateTeamData(tids, tnames) async{
+  updateTeamData(tids, tnames) async {
     final prefs = await SharedPreferences.getInstance();
-    if(prefs.containsKey('teamIds') == false){
+    if (prefs.containsKey('teamIds') == false) {
       prefs.setStringList('teamIds', tids);
     }
-    if(prefs.containsKey('teamIds') == false){
+    if (prefs.containsKey('teamIds') == false) {
       prefs.setStringList('teamNames', tnames);
     }
   }
@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        toolbarHeight: MediaQuery.of(context).size.height * 0.15,
+        toolbarHeight: pageSize.height * 0.15,
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        title:Container(
+        title: Container(
           padding: const EdgeInsets.only(
             top: 25,
             left: 3,
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: pageSize.height * 0.12,
           width: pageSize.width,
           decoration: const BoxDecoration(
-            color: Colors.black87,//fromARGB(255,18,7,17),
+            color: Colors.black87, //fromARGB(255,18,7,17),
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(25),
               bottomRight: Radius.circular(25),
@@ -90,19 +90,32 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(width: pageSize.width*0.035,),
-              Expanded(child: Image.asset("assets/varchas_textLogo_nobg.png",),flex: 2,),
-              SizedBox(width: pageSize.width*0.05,),
+              SizedBox(
+                width: pageSize.width * 0.035,
+              ),
               Expanded(
-                child: Image.asset("assets/varchas_Logo_nobg.png",
+                child: Image.asset(
+                  "assets/varchas_textLogo_nobg.png",
                 ),
-                flex: 1,),
-              SizedBox(width: pageSize.width*0.02,),
+                flex: 2,
+              ),
+              SizedBox(
+                width: pageSize.width * 0.05,
+              ),
+              Expanded(
+                child: Image.asset(
+                  "assets/varchas_Logo_nobg.png",
+                ),
+                flex: 1,
+              ),
+              SizedBox(
+                width: pageSize.width * 0.02,
+              ),
             ],
           ),
         ),
       ),
-      backgroundColor: Color.fromRGBO(35, 14, 33, 25),
+      backgroundColor: const Color.fromRGBO(35, 14, 33, 25),
       body: Container(
         padding: EdgeInsets.all(pageSize.width * 0.025),
         child: Container(
@@ -114,23 +127,31 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: pageSize.height * 0.15,),
+              SizedBox(
+                height: pageSize.height * 0.15,
+              ),
               const Text(
                 "LOGIN",
-                style: TextStyle(fontWeight: FontWeight.bold,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Colors.white,
                 ),
               ),
               SizedBox(
-                child: const Divider(color: Colors.white70, ),
+                child: const Divider(
+                  color: Colors.white70,
+                ),
                 width: pageSize.width * 0.3,
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               // SizedBox(height: pageSize.height * 0.03),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 5),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
                 width: pageSize.width * 0.8,
                 decoration: BoxDecoration(
                   color: Colors.white38,
@@ -150,11 +171,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               GestureDetector(
                 onTap: () async {
                   String enteredTeamid = teamIdController.text;
-                  if(fetchedData == false){
+                  if (fetchedData == false) {
                     Fluttertoast.showToast(
                       msg: "App connecting, Please wait a few seconds..",
                       backgroundColor: Colors.blueGrey.shade600,
@@ -162,18 +185,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       timeInSecForIosWeb: 1,
                     );
                   }
-                  int teamIndex = teamData!.verifyTeamIDandGetDetails(enteredTeamid);
-                  if(teamIndex != -1){
+                  int teamIndex =
+                      teamData!.verifyTeamIDandGetDetails(enteredTeamid);
+                  if (teamIndex != -1) {
                     dynamic team = teamData!.results[teamIndex];
                     final prefs = await SharedPreferences.getInstance();
                     prefs.setBool('isLoggedIn', true);
-                    prefs.setStringList('teamData', [team['teamId'], team['college'], team['sport'], team['score'].toString()]);
+                    prefs.setStringList('teamData', [
+                      team['teamId'],
+                      team['college'],
+                      team['sport'],
+                      team['score'].toString()
+                    ]);
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const ScheduleScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const ScheduleScreen()),
                     );
-                  }
-                  else{
+                  } else {
                     Fluttertoast.showToast(
                       msg: "Please enter valid Team ID. Eg. VA-ABC-XYZ69",
                       backgroundColor: Colors.redAccent,
@@ -193,26 +222,41 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
-                      Icon(Icons.login_sharp, color: Colors.white,),
-                      SizedBox(width: 20,),
-                      Text("Login", style: TextStyle(color: Colors.white),),
+                      Icon(
+                        Icons.login_sharp,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               SizedBox(
-                child: const Divider(color: Colors.white70, ),
+                child: const Divider(
+                  color: Colors.white70,
+                ),
                 width: pageSize.width * 0.3,
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               GestureDetector(
                 onTap: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setBool('isLoggedIn', false);
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const ScheduleScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ScheduleScreen()),
                   );
                 },
                 child: Container(
@@ -227,8 +271,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
                       Icon(Icons.login_sharp, color: Colors.white),
-                      SizedBox(width: 20,),
-                      Text("Continue without login", style: TextStyle(color: Colors.white),),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "Continue without login",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
