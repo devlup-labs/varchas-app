@@ -6,6 +6,7 @@ import 'package:varchas_app/screens/choose_sport.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:varchas_app/screens/my_competetion_screen.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
+import 'package:varchas_app/screens/transportation.dart';
 
 class Header extends StatelessWidget {
   final Size size;
@@ -221,6 +222,100 @@ class TeamCard extends StatelessWidget {
         ));
   }
 }
+
+
+
+class TransportCard extends StatelessWidget {
+  final String source;
+  final String destination;
+  // final String? sportName;
+  final String time;
+  final Size size;
+  const TransportCard(
+      {Key? key,
+      required this.source,
+      required this.destination,
+      required this.size,
+      // this.sportName,
+      required this.time})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: size.height * 0.15,
+        width: size.width,
+        padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+        decoration: const BoxDecoration(
+          color: Colors.black87, //.fromARGB(255,18,7,17),
+          // borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "BUS",
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 15,
+                  ),
+                ),
+                const SizedBox(
+                  width: 50.0,
+                ),
+                Text(
+                  time,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12.5,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              // width: size.width * 0.25,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  source,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            SizedBox(
+              // alignment: Alignment.center,
+              // width: size.width * 0.28,
+              // height: size.height * 0.1,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  destination,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            const Divider(
+              color: Colors.white70,
+            ),
+          ],
+        ));
+  }
+}
+
+
 
 class DayButton extends StatelessWidget {
   // final String path;
@@ -467,6 +562,26 @@ Widget buildMenuItems(
             }
           },
         ),
+
+        ListTile(
+          leading: const Icon(Icons.calendar_today, color: Colors.black),
+          title: const Text(
+            'Transport Schedule',
+          ),
+          onTap: () {
+            Navigator.pop(context);
+            if (currentPage != 's') {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TransportSchedule(),
+                ),
+                (route) => false,
+              );
+            }
+          },
+        ),
+        
         isLoggedIn
             ? ListTile(
                 leading: const Icon(Icons.schedule, color: Colors.black),
