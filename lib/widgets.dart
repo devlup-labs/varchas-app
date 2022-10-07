@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:varchas_app/screens/choose_sport.dart';
+import 'package:varchas_app/screens/fixture_page.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:varchas_app/screens/my_competetion_screen.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
+<<<<<<< HEAD
 import 'package:varchas_app/screens/transportation.dart';
+=======
+import 'package:url_launcher/url_launcher.dart';
+import 'package:maps_launcher/maps_launcher.dart';
+>>>>>>> 9356ab0fd459d8d39e9393a5a2e10b1dddfeffed
 
 class Header extends StatelessWidget {
   final Size size;
@@ -139,87 +145,113 @@ class TeamCard extends StatelessWidget {
   final String? sportName;
   final String time;
   final Size size;
-  const TeamCard(
-      {Key? key,
-      required this.teamTwoName,
-      required this.teamOneName,
-      required this.size,
-      this.sportName,
-      required this.time})
-      : super(key: key);
+  // final double x;
+  // final double y;
+
+  const TeamCard({
+    Key? key,
+    required this.teamTwoName,
+    required this.teamOneName,
+    required this.size,
+    this.sportName,
+    required this.time,
+    // required this.x,
+    // required this.y
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: size.height * 0.15,
-        width: size.width,
-        padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
-        decoration: const BoxDecoration(
-          color: Colors.black87, //.fromARGB(255,18,7,17),
-          // borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  sportName!,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 15,
+    return GestureDetector(
+      onTap: () {
+        // MapsLauncher.launchCoordinates(x, y);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FixturePage(
+                    teamOneName: teamOneName,
+                    teamTwoName: teamTwoName,
+                    sportName: sportName,
+                    time: time)));
+      },
+      child: Container(
+          height: size.height * 0.15,
+          width: size.width,
+          padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+          decoration: const BoxDecoration(
+            color: Colors.black87, //.fromARGB(255,18,7,17),
+            // borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    sportName!,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                Text(
-                  time,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.5,
+                  const SizedBox(
+                    width: 50.0,
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              // width: size.width * 0.25,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Text(
-                  teamOneName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
+                  Text(
+                    time,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12.5,
+                    ),
                   ),
-                  maxLines: 1,
+                ],
+              ),
+              SizedBox(
+                // width: size.width * 0.25,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    teamOneName,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                    maxLines: 1,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              // alignment: Alignment.center,
-              // width: size.width * 0.28,
-              // height: size.height * 0.1,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Text(
-                  teamTwoName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
+              SizedBox(
+                // alignment: Alignment.center,
+                // width: size.width * 0.28,
+                // height: size.height * 0.1,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    teamTwoName,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                    maxLines: 1,
                   ),
-                  maxLines: 1,
                 ),
               ),
-            ),
-            const Divider(
-              color: Colors.white70,
-            ),
-          ],
-        ));
+              const Divider(
+                color: Colors.white70,
+              ),
+            ],
+          )),
+    );
+  }
+}
+
+_redirect(String url) async {
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
+  } else {
+    throw 'Could not launch $url';
   }
 }
 
@@ -524,16 +556,12 @@ Widget buildMenuItems(
             'Schedule',
           ),
           onTap: () {
-            Navigator.pop(context);
-            if (currentPage != 's') {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ScheduleScreen(),
-                ),
-                (route) => false,
-              );
-            }
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ScheduleScreen(),
+              ),
+            );
           },
         ),
         ListTile(
