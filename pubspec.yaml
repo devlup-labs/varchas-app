@@ -50,8 +50,8 @@ dev_dependencies:
   http: ^0.13.4
   shared_preferences: ^2.0.13
   fluttertoast: ^8.0.9
-  url_launcher: ^6.1.5
   maps_launcher: ^2.0.1
+  flutter_svg: ^1.1.5
   
 flutter_icons:
   android: "launcher_icon"

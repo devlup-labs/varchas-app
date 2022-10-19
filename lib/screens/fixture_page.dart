@@ -159,7 +159,8 @@ class FixturePage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  MapsLauncher.launchCoordinates(26.475500241368298, 73.12012050554168);
+                  MapsLauncher.launchCoordinates(
+                      26.475500241368298, 73.12012050554168);
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
