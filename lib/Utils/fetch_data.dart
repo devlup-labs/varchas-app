@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:varchas_app/Utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+var base_url = "172.31.50.153:8000"; // varchas22.in
 Future<TeamData> fetchTeamData() async {
   // final response = await http
-  //     .get(Uri.parse('https://varchas22.in/registration/teamsApi/?format=json'));
+  //     .get(Uri.parse('http://$base_url/registration/teamsApi/?format=json'));
   //
   // if (response.statusCode == 200) {
   //   // If the server did return a 200 OK response,
@@ -18,8 +20,8 @@ Future<TeamData> fetchTeamData() async {
   // }
   print("Fetching data");
   TeamData td = TeamData();
-  await td.getDataFromUrl(
-      'https://varchas22.in/registration/teamsApi/?format=json');
+  await td
+      .getDataFromUrl('http://$base_url/registration/teamsApi/?format=json');
   return td;
 }
 
@@ -70,27 +72,23 @@ class TeamData {
   }
 }
 
-getScheduleResults(int day, {String teamId = ""}) async {
+getScheduleResults(int day, {String? teamId = ""}) async {
   List<dynamic> results = [];
   String date = dates[day - 1];
 
   http.Response response;
   dynamic json;
 
-  String? nextLink = "https://varchas22.in/events/MatchApi/";
-  while (nextLink != null) {
-    response = await http.get(Uri.parse(nextLink));
-    if (response.statusCode != 200) {
-      throw Exception('Failed to load album');
-    }
-    json = jsonDecode(response.body);
-    results += json['results'];
-    nextLink = json['next'];
+  String? nextLink = "http://$base_url/app_apis/get_matches/";
+  response = await http.get(Uri.parse(nextLink));
+  if (response.statusCode != 200) {
+    throw Exception('Failed to load album');
   }
-  // print("Successfully fetched ${results.length} matches !!");
+  json = jsonDecode(response.body);
+  print("Successfully fetched ${json.length} matches !!");
 
   if (teamId == "") {
-    var output = results;
+    var output = json;
     output = output.where((element) => element['date'] == date).toList();
     output.sort((a, b) {
       if (int.parse(a['event']) < int.parse(b['event'])) {
@@ -111,7 +109,7 @@ getScheduleResults(int day, {String teamId = ""}) async {
     });
     return output;
   } else {
-    results = results.where((element) => element['date'] == date).toList();
+    results = json.where((element) => element['date'] == date).toList();
     var output1 = results;
     output1 = output1.where((element) => element['team1'] == teamId).toList();
 
@@ -128,7 +126,7 @@ getTransportDetails(int day, {String transportId = ""}) async {
   http.Response response;
   dynamic json;
 
-  String? nextLink = "https://varchas22.in/events/TransportApi/";
+  String? nextLink = "http://$base_url/events/TransportApi/";
   while (nextLink != null) {
     response = await http.get(Uri.parse(nextLink));
     if (response.statusCode != 200) {

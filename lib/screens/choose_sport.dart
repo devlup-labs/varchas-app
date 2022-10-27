@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:varchas_app/Utils/constants.dart';
 import 'package:varchas_app/screens/leaderboard_screen.dart';
-
 import '../widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+var base_url = "172.31.50.153:8000"; // varchas22.in
 
 class ChooseSportScreen extends StatefulWidget {
   const ChooseSportScreen({Key? key}) : super(key: key);
@@ -14,14 +16,12 @@ class ChooseSportScreen extends StatefulWidget {
 
 class _ChooseSportScreenState extends State<ChooseSportScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
     Size data = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: data.height*0.05,
-        backgroundColor:  Colors.black87,//.fromARGB(255,18,7,17),
-
+        toolbarHeight: data.height * 0.05,
+        backgroundColor: Colors.black87, //.fromARGB(255,18,7,17),
       ),
       drawer: NavigationDrawer('l'),
       backgroundColor: Color.fromRGBO(35, 14, 33, 25),
@@ -30,8 +30,36 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Header(size: data, screenName: "Choose Sport"),
-            SizedBox(height: data.height*0.01,),
+            Header(size: data, screenName: "Score Card"),
+            SizedBox(
+              height: data.height * 0.01,
+            ),
+            Card(
+              color: Colors.black,
+              margin: EdgeInsets.all(6),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    //image,
+                    SvgPicture.asset(
+                      "assets/overall.svg",
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                    ),
+                    const Text(
+                      "OVERALL",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Expanded(
               child: Scrollbar(
                 thickness: 4,
@@ -45,8 +73,7 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
                       shrinkWrap: true,
                       childAspectRatio: 45 / 60,
                       crossAxisCount: 2,
-                      children:
-                      List.generate(sportsList.length, (index) {
+                      children: List.generate(sportsList.length, (index) {
                         return displaySportIcon(sportsList[index]);
                       }),
                     )
@@ -60,14 +87,15 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
     );
   }
 
-  Widget displaySportIcon(String sportName){
+  Widget displaySportIcon(String sportName) {
     return GestureDetector(
       onTap: () {
-        int sportNumber = sportsList.indexOf(sportName)+1;
+        int sportNumber = sportsList.indexOf(sportName) + 1;
         Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LeaderBoardScreen(sportNumber.toString()),
-            ),
+          context,
+          MaterialPageRoute(
+            builder: (context) => LeaderBoardScreen(sportNumber.toString()),
+          ),
         );
       },
       child: Card(
@@ -81,9 +109,11 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
               StreamBuilder<Object>(
                   stream: null,
                   builder: (context, snapshot) {
-                    String imgUrl = "https://varchas22.in/static/images/home/${sportName.toLowerCase()}.png";
-                    if(sportUrlExceptions.keys.contains(sportName)){
-                      imgUrl = "https://varchas22.in/static/images/home/${sportUrlExceptions[sportName].toString()}.png";
+                    String imgUrl =
+                        "http://$base_url/static/images/${sportName.toLowerCase()}.png";
+                    if (sportUrlExceptions.keys.contains(sportName)) {
+                      imgUrl =
+                          "http://$base_url/static/images/${sportUrlExceptions[sportName].toString()}.png";
                     }
                     return Image.network(
                       imgUrl,

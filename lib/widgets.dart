@@ -7,12 +7,9 @@ import 'package:varchas_app/screens/fixture_page.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:varchas_app/screens/my_competetion_screen.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
-<<<<<<< HEAD
 import 'package:varchas_app/screens/transportation.dart';
-=======
 import 'package:url_launcher/url_launcher.dart';
 import 'package:maps_launcher/maps_launcher.dart';
->>>>>>> 9356ab0fd459d8d39e9393a5a2e10b1dddfeffed
 
 class Header extends StatelessWidget {
   final Size size;
@@ -145,6 +142,7 @@ class TeamCard extends StatelessWidget {
   final String? sportName;
   final String time;
   final Size size;
+  final String venue;
   // final double x;
   // final double y;
 
@@ -155,6 +153,7 @@ class TeamCard extends StatelessWidget {
     required this.size,
     this.sportName,
     required this.time,
+    required this.venue,
     // required this.x,
     // required this.y
   }) : super(key: key);
@@ -171,7 +170,9 @@ class TeamCard extends StatelessWidget {
                     teamOneName: teamOneName,
                     teamTwoName: teamTwoName,
                     sportName: sportName,
-                    time: time)));
+                    time: time,
+                    venue:venue,
+                    )));
       },
       child: Container(
           height: size.height * 0.15,
@@ -190,7 +191,7 @@ class TeamCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    sportName!,
+                    (sportName ?? ""),
                     style: const TextStyle(
                       color: Colors.red,
                       fontSize: 15,
@@ -254,8 +255,6 @@ _redirect(String url) async {
     throw 'Could not launch $url';
   }
 }
-
-
 
 class TransportCard extends StatelessWidget {
   final String source;
@@ -346,8 +345,6 @@ class TransportCard extends StatelessWidget {
         ));
   }
 }
-
-
 
 class DayButton extends StatelessWidget {
   // final String path;
@@ -590,7 +587,6 @@ Widget buildMenuItems(
             }
           },
         ),
-
         ListTile(
           leading: const Icon(Icons.calendar_today, color: Colors.black),
           title: const Text(
@@ -609,7 +605,6 @@ Widget buildMenuItems(
             }
           },
         ),
-        
         isLoggedIn
             ? ListTile(
                 leading: const Icon(Icons.schedule, color: Colors.black),

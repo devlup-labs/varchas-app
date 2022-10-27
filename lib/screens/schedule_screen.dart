@@ -157,11 +157,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     }
     return List.generate(scheduleList.length, (index) {
       return TeamCard(
-        teamTwoName: teamIdToName(scheduleList[index]['team2']),
         teamOneName: teamIdToName(scheduleList[index]['team1']),
+        teamTwoName: teamIdToName(scheduleList[index]['team2']),
         size: pageSize,
         sportName: sportsChoices[scheduleList[index]['event']],
         time: scheduleList[index]['time'],
+        venue: scheduleList[index]['venue'],
       );
     });
   }

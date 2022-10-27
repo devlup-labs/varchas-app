@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:varchas_app/widgets.dart';
+import 'package:varchas_app/Utils/constants.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class FixturePage extends StatelessWidget {
@@ -7,14 +8,14 @@ class FixturePage extends StatelessWidget {
   final String teamTwoName;
   final String? sportName;
   final String time;
+  final String venue;
   FixturePage({
     Key? key,
     required this.teamTwoName,
     required this.teamOneName,
     this.sportName,
     required this.time,
-    // required this.x,
-    // required this.y
+    required this.venue,
   }) : super(key: key);
 
   var pageSize;
@@ -146,7 +147,7 @@ class FixturePage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    time,
+                    venue,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -159,7 +160,8 @@ class FixturePage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  MapsLauncher.launchCoordinates(26.475500241368298, 73.12012050554168);
+                  List? point = getCoordinates(venue);
+                  MapsLauncher.launchCoordinates(point![0], point[1]);
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -183,4 +185,8 @@ class FixturePage extends StatelessWidget {
           ),
         ));
   }
+}
+
+List? getCoordinates(String venue) {
+  return locations[venue];
 }
