@@ -5,6 +5,8 @@ import 'package:varchas_app/screens/leaderboard_screen.dart';
 import '../widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+var base_url = "172.31.50.153:8000"; // varchas22.in
+
 class ChooseSportScreen extends StatefulWidget {
   const ChooseSportScreen({Key? key}) : super(key: key);
 
@@ -108,10 +110,10 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
                   stream: null,
                   builder: (context, snapshot) {
                     String imgUrl =
-                        "https://varchas22.in/static/images/home/${sportName.toLowerCase()}.png";
+                        "http://$base_url/static/images/${sportName.toLowerCase()}.png";
                     if (sportUrlExceptions.keys.contains(sportName)) {
                       imgUrl =
-                          "https://varchas22.in/static/images/home/${sportUrlExceptions[sportName].toString()}.png";
+                          "http://$base_url/static/images/${sportUrlExceptions[sportName].toString()}.png";
                     }
                     return Image.network(
                       imgUrl,
