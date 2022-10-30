@@ -171,3 +171,17 @@ getTransportDetails(int day, {String transportId = ""}) async {
     return output1 + output2;
   }
 }
+
+getSponsors() async {
+  List<dynamic> results = [];
+
+  http.Response response;
+  dynamic json;
+  String? nextLink = "http://$base_url/app_apis/sponsors/";
+  response = await http.get(Uri.parse(nextLink));
+  if (response.statusCode != 200) {
+    throw Exception('Failed to load sponsors');
+  }
+  json = jsonDecode(response.body);
+  return json;
+}
