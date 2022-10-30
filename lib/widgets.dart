@@ -7,6 +7,7 @@ import 'package:varchas_app/screens/fixture_page.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:varchas_app/screens/my_competetion_screen.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
+import 'package:varchas_app/screens/sponsors.dart';
 import 'package:varchas_app/screens/transportation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -167,11 +168,11 @@ class TeamCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => FixturePage(
-                    teamOneName: teamOneName,
-                    teamTwoName: teamTwoName,
-                    sportName: sportName,
-                    time: time,
-                    venue:venue,
+                      teamOneName: teamOneName,
+                      teamTwoName: teamTwoName,
+                      sportName: sportName,
+                      time: time,
+                      venue: venue,
                     )));
       },
       child: Container(
@@ -567,42 +568,44 @@ Widget buildMenuItems(
             'Leaderboard',
           ),
           onTap: () {
-            Navigator.pop(context);
-            if (currentPage != 'l') {
-              if (currentPage == 's') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChooseSportScreen(),
-                  ),
-                );
-              } else {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChooseSportScreen(),
-                  ),
-                );
-              }
-            }
+            // Navigator.pop(context);
+            // if (currentPage != 'l') {
+            //   if (currentPage == 's') {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const ChooseSportScreen(),
+            //       ),
+            //     );
+            //   } else {
+            //     Navigator.pushReplacement(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const ChooseSportScreen(),
+            //       ),
+            //     );
+            //   }
+            // }
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ChooseSportScreen(),
+              ),
+            );
           },
         ),
         ListTile(
-          leading: const Icon(Icons.calendar_today, color: Colors.black),
+          leading: const Icon(Icons.handshake_outlined, color: Colors.black),
           title: const Text(
-            'Transport Schedule',
+            'Sponsors',
           ),
           onTap: () {
-            Navigator.pop(context);
-            if (currentPage != 's') {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const TransportSchedule(),
-                ),
-                (route) => false,
-              );
-            }
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SponsorsPage(),
+              ),
+            );
           },
         ),
         isLoggedIn

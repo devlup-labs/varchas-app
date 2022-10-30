@@ -11,20 +11,21 @@ final sportsChoices = {
   '7': 'Table Tenis',
   '8': 'Tenis',
   '9': 'Volleyball',
-  '10': 'Badminton-Mixed doubles',
-  '11': 'Kabaddi',
-  '12': 'Squash',
-  '13': 'Weightlifting',
+  // '10': 'Badminton-Mixed doubles',
+  '10': 'Kabaddi',
+  // '12': 'Squash',
+  // '13': 'Weightlifting',
 };
 final locations = {
-    'IITJ Football Ground':[26.475500241368298, 73.12012050554168],
-    'Volleyball Ground':[26.47731349752093, 73.12134341175553],
-    'Tennis Ground':[26.477008885433506, 73.12117409853494],
-    'Indoor sports Complex':[26.47681999463718, 73.11939962588451],
-    'Lecture Hall Complex':[],
-    'Spartan Cricket Ground':[],
-    'Pathan Cricket Academy':[],
-    'VIRU Cricket Academy':[],
+  'IITJ Football Ground': [26.475500241368298, 73.12012050554168],
+  'Volleyball Ground': [26.47731349752093, 73.12134341175553],
+  'Tennis Ground': [26.477008885433506, 73.12117409853494],
+  'Indoor sports Complex': [26.47681999463718, 73.11939962588451],
+  'Lecture Hall Complex': [26.47312321493185, 73.11406019139604],
+  'Spartan Cricket Ground': [],
+  'Pathan Cricket Academy': [],
+  'VIRU Cricket Academy': [],
+  'L S Sankhla Sports Academy': [26.31901835293305, 73.0823644165303],
 };
 final dates = ["2022-10-29", "2022-10-30", "2022-10-31"];
 final sportsList = [
@@ -35,21 +36,21 @@ final sportsList = [
   'Cricket',
   'Football',
   'Kabaddi',
-  'Weightlifting',
+  // 'Weightlifting',
   'Table Tennis',
   'Tennis',
   'Volleyball',
-  'Badminton-Mixed doubles',
-  'Squash',
+  // 'Badminton-Mixed doubles',
+  // 'Squash',
 ];
 final sportUrlExceptions = {
   'Basketball': 'basketball-player',
   // 'Volleyball': 'vb',
   'Cricket': 'cricket-inverted',
   'Kabaddi': 'kabaddi-inverted',
-  'Weightlifting': 'weightlifting-inverted',
+  // 'Weightlifting': 'weightlifting-inverted',
   'Table Tennis': 'table-tennis',
-  'Badminton-Mixed doubles': 'badminton'
+  // 'Badminton-Mixed doubles': 'badminton'
 };
 final unLoggedInScreens = {
   'Schedule': const ScheduleScreen(),

@@ -63,7 +63,7 @@ class _ChooseSportScreenState extends State<ChooseSportScreen> {
             Expanded(
               child: Scrollbar(
                 thickness: 4,
-                isAlwaysShown: false,
+                thumbVisibility: false,
                 child: ListView(
                   //padding: const EdgeInsets.all(1.5),
                   children: <Widget>[
