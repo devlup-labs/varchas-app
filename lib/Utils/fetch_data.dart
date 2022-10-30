@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:varchas_app/Utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-var base_url = "172.31.50.153:8000"; // varchas22.in
+var base_url = "Your IP Address"; // varchas22.in
 Future<TeamData> fetchTeamData() async {
   // final response = await http
   //     .get(Uri.parse('http://$base_url/registration/teamsApi/?format=json'));
