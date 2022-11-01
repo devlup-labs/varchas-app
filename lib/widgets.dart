@@ -7,7 +7,7 @@ import 'package:varchas_app/screens/fixture_page.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:varchas_app/screens/my_competetion_screen.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
-import 'package:varchas_app/screens/sponsors.dart';
+// import 'package:varchas_app/screens/sponsors.dart';
 import 'package:varchas_app/screens/transportation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:maps_launcher/maps_launcher.dart';
