@@ -4,10 +4,11 @@ import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:varchas_app/screens/choose_sport.dart';
 import 'package:varchas_app/screens/fixture_page.dart';
+import 'package:varchas_app/screens/informal_screen.dart';
 import 'package:varchas_app/screens/login_screen.dart';
 import 'package:varchas_app/screens/my_competetion_screen.dart';
 import 'package:varchas_app/screens/schedule_screen.dart';
-// import 'package:varchas_app/screens/sponsors.dart';
+import 'package:varchas_app/screens/sponsors.dart';
 import 'package:varchas_app/screens/transportation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:maps_launcher/maps_launcher.dart';
@@ -246,6 +247,96 @@ class TeamCard extends StatelessWidget {
             ],
           )),
     );
+  }
+}
+
+class InformalCard extends StatelessWidget {
+  final String eventName;
+  final String location;
+  // final String? sportName;
+  final String time;
+  final Size size;
+  const InformalCard(
+      {Key? key,
+      required this.eventName,
+      required this.location,
+      required this.time,
+      // this.sportName,
+      required this.size})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: size.height * 0.15,
+        width: size.width,
+        padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
+        decoration: const BoxDecoration(
+          color: Colors.black87, //.fromARGB(255,18,7,17),
+          // borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  eventName,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 20,
+                  ),
+                ),
+                // const SizedBox(
+                //   width: 50.0,
+                // ),
+                // Text(
+                //   time,
+                //   style: const TextStyle(
+                //     color: Colors.white,
+                //     fontSize: 12.5,
+                //   ),
+                // ),
+              ],
+            ),
+            SizedBox(
+              // width: size.width * 0.25,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  location,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            SizedBox(
+              // alignment: Alignment.center,
+              // width: size.width * 0.28,
+              // height: size.height * 0.1,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  time,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            const Divider(
+              color: Colors.white70,
+            ),
+          ],
+        ));
   }
 }
 
@@ -590,6 +681,20 @@ Widget buildMenuItems(
               context,
               MaterialPageRoute(
                 builder: (context) => const ChooseSportScreen(),
+              ),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.calendar_today, color: Colors.black),
+          title: const Text(
+            'Informal Schedule',
+          ),
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const InformalScreen(),
               ),
             );
           },

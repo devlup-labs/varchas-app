@@ -5,7 +5,7 @@ import 'package:varchas_app/screens/leaderboard_screen.dart';
 import '../widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-var base_url = "Your IP Address"; // varchas22.in
+var base_url = "172.31.50.153:8000"; // varchas22.in
 
 class ChooseSportScreen extends StatefulWidget {
   const ChooseSportScreen({Key? key}) : super(key: key);
