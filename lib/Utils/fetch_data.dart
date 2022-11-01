@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:varchas_app/Utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-var base_url = "Your IP Address"; // varchas22.in
+var base_url = "172.31.50.153:8000"; // varchas22.in
 Future<TeamData> fetchTeamData() async {
   // final response = await http
   //     .get(Uri.parse('http://$base_url/registration/teamsApi/?format=json'));
@@ -117,6 +117,47 @@ getScheduleResults(int day, {String? teamId = ""}) async {
     output2 = output2.where((element) => element['team2'] == teamId).toList();
     return output1 + output2;
   }
+}
+
+getInformalEvents(int day) async {
+  List<dynamic> events = [];
+  String date = dates[day - 1];
+
+  http.Response response;
+  dynamic json;
+
+  String? nextLink = "http://$base_url/app_apis/informals/";
+  response = await http.get(Uri.parse(nextLink));
+  if (response.statusCode != 200) {
+    throw Exception('Failed to load album');
+  }
+  json = jsonDecode(response.body);
+  print("Successfully fetched ${json.length} Events !!");
+
+  // sort informal events by days and return the events of the day
+  events = json.where((element) => element['date'] == date).toList();
+  events.sort((a, b) {
+    if (int.parse(a['event']) < int.parse(b['event'])) {
+      return -1;
+    } else if (int.parse(a['event']) > int.parse(b['event'])) {
+      return 1;
+    } else {
+      if (int.parse(a['time'].toString().substring(0, 2)) <
+          int.parse(b['time'].toString().substring(0, 2))) {
+        return -1;
+      } else if (int.parse(a['time'].toString().substring(0, 2)) >
+          int.parse(b['time'].toString().substring(0, 2))) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  });
+  print("informal");
+  for(int i=0;i<events.length;i++){
+    print(events[i]);
+  }
+  return events;
 }
 
 getTransportDetails(int day, {String transportId = ""}) async {
